@@ -2,6 +2,7 @@ staticfiles/
 *.sqlite3
 venv/
 secret/
+.vscode/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
