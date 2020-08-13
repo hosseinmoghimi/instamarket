@@ -7,4 +7,9 @@ djangorestframework
 persiantools
 dj-database-url
 gunicorn
-django-heroku
+django_heroku
+PyMySQL
+django-mysql
+mysqlclient
+wheel
+dj_database_url

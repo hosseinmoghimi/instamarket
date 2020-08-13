@@ -1,6 +1,7 @@
 
 from pathlib import Path
 import os
+import dj_database_url
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 secret_file_path=os.path.join(os.path.join(BASE_DIR, 'secret'),'secret.sec')
@@ -12,14 +13,24 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['khafonline.com','www.khafonline.com']
 
-
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+MYSQL=False
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 TIME_ZONE = 'Asia/Tehran'

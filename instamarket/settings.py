@@ -14,39 +14,13 @@ ON_SERVER=True
 if '--no-color' in sys.argv:
     ON_SERVER=False
 
-if ON_SERVER:
-    SECRET_KEY = server_settings.SECRET_KEY
-    DEBUG = server_settings.DEBUG
-    ALLOWED_HOSTS = server_settings.ALLOWED_HOSTS
-    TIME_ZONE = server_settings.TIME_ZONE
-    STATIC_URL = server_settings.STATIC_URL
-    STATIC_ROOT = server_settings.STATIC_ROOT
-    MEDIA_URL = server_settings.MEDIA_URL
-    MEDIA_ROOT = server_settings.MEDIA_ROOT
-    SITE_URL=server_settings.SITE_URL
-    ADMIN_URL=server_settings.ADMIN_URL
-    STATICFILES_DIRS=server_settings.STATICFILES_DIRS
-
-if not ON_SERVER:    
-    SECRET_KEY = local_settings.SECRET_KEY
-    DEBUG = local_settings.DEBUG
-    ALLOWED_HOSTS = local_settings.ALLOWED_HOSTS
-    TIME_ZONE = local_settings.TIME_ZONE
-    STATIC_URL = local_settings.STATIC_URL
-    STATIC_ROOT = local_settings.STATIC_ROOT
-    MEDIA_URL = local_settings.MEDIA_URL
-    MEDIA_ROOT = local_settings.MEDIA_ROOT
-    SITE_URL=local_settings.SITE_URL
-    ADMIN_URL=local_settings.ADMIN_URL    
-    STATICFILES_DIRS=local_settings.STATICFILES_DIRS
-
-
 
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -123,5 +97,50 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+
+
+
+
+if ON_SERVER:
+    SECRET_KEY = server_settings.SECRET_KEY
+    DEBUG = server_settings.DEBUG
+    ALLOWED_HOSTS = server_settings.ALLOWED_HOSTS
+    TIME_ZONE = server_settings.TIME_ZONE
+    STATIC_URL = server_settings.STATIC_URL
+    STATIC_ROOT = server_settings.STATIC_ROOT
+    MEDIA_URL = server_settings.MEDIA_URL
+    MEDIA_ROOT = server_settings.MEDIA_ROOT
+    SITE_URL=server_settings.SITE_URL
+    ADMIN_URL=server_settings.ADMIN_URL
+    STATICFILES_DIRS=server_settings.STATICFILES_DIRS
+    DATABASES=server_settings.DATABASES
+    MYSQL=server_settings.MYSQL
+
+if not ON_SERVER:    
+    SECRET_KEY = local_settings.SECRET_KEY
+    DEBUG = local_settings.DEBUG
+    ALLOWED_HOSTS = local_settings.ALLOWED_HOSTS
+    TIME_ZONE = local_settings.TIME_ZONE
+    STATIC_URL = local_settings.STATIC_URL
+    STATIC_ROOT = local_settings.STATIC_ROOT
+    MEDIA_URL = local_settings.MEDIA_URL
+    MEDIA_ROOT = local_settings.MEDIA_ROOT
+    SITE_URL=local_settings.SITE_URL
+    ADMIN_URL=local_settings.ADMIN_URL    
+    STATICFILES_DIRS=local_settings.STATICFILES_DIRS
+    DATABASES=local_settings.DATABASES
+    MYSQL=local_settings.MYSQL
+
+
+
+
+
+
+
+
+
 django_heroku.settings(locals())
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
