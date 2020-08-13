@@ -2,19 +2,26 @@
 from pathlib import Path
 import os
 import sys
-from . import server_settings
 import django_heroku
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 
+ON_HEROKU=False
+ON_SERVER=False
+ON_MAGGIE=False
 
-ON_SERVER=True
 if '--no-color' in sys.argv:
-    ON_SERVER=False    
+    ON_MAGGIE=True  
     from . import local_settings
 
+if 'gunicorn' in sys.argv:
+    ON_HEROKU=True    
+    from . import heroku_settings
 
+else:
+    ON_SERVER=True
+    from . import server_settings
 
 
 # Application definition
@@ -102,6 +109,21 @@ USE_TZ = True
 
 
 
+if ON_HEROKU:
+    SECRET_KEY = heroku_settings.SECRET_KEY
+    DEBUG = heroku_settings.DEBUG
+    ALLOWED_HOSTS = heroku_settings.ALLOWED_HOSTS
+    TIME_ZONE = heroku_settings.TIME_ZONE
+    STATIC_URL = heroku_settings.STATIC_URL
+    STATIC_ROOT = heroku_settings.STATIC_ROOT
+    MEDIA_URL = heroku_settings.MEDIA_URL
+    MEDIA_ROOT = heroku_settings.MEDIA_ROOT
+    SITE_URL=heroku_settings.SITE_URL
+    ADMIN_URL=heroku_settings.ADMIN_URL
+    STATICFILES_DIRS=heroku_settings.STATICFILES_DIRS
+    DATABASES=heroku_settings.DATABASES
+    MYSQL=heroku_settings.MYSQL
+
 if ON_SERVER:
     SECRET_KEY = server_settings.SECRET_KEY
     DEBUG = server_settings.DEBUG
@@ -117,7 +139,7 @@ if ON_SERVER:
     DATABASES=server_settings.DATABASES
     MYSQL=server_settings.MYSQL
 
-if not ON_SERVER:    
+if ON_MAGGIE:    
     SECRET_KEY = local_settings.SECRET_KEY
     DEBUG = local_settings.DEBUG
     ALLOWED_HOSTS = local_settings.ALLOWED_HOSTS
