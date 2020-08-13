@@ -1,10 +1,11 @@
+staticfiles/
+*.sqlite3
+venv/
+secret/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-*.sqlite3
-venv/
-secret/
 # C extensions
 *.so
 
@@ -56,7 +57,6 @@ coverage.xml
 # Translations
 *.mo
 *.pot
-
 # Django stuff:
 *.log
 local_settings.py

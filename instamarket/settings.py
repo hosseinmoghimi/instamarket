@@ -19,7 +19,7 @@ if ON_SERVER:
     ALLOWED_HOSTS = server_settings.ALLOWED_HOSTS
     TIME_ZONE = server_settings.TIME_ZONE
     STATIC_URL = server_settings.STATIC_URL
-    # STATIC_ROOT = server_settings.STATIC_ROOT
+    STATIC_ROOT = server_settings.STATIC_ROOT
     MEDIA_URL = server_settings.MEDIA_URL
     MEDIA_ROOT = server_settings.MEDIA_ROOT
     SITE_URL=server_settings.SITE_URL
@@ -32,7 +32,7 @@ if not ON_SERVER:
     ALLOWED_HOSTS = local_settings.ALLOWED_HOSTS
     TIME_ZONE = local_settings.TIME_ZONE
     STATIC_URL = local_settings.STATIC_URL
-    # STATIC_ROOT = local_settings.STATIC_ROOT
+    STATIC_ROOT = local_settings.STATIC_ROOT
     MEDIA_URL = local_settings.MEDIA_URL
     MEDIA_ROOT = local_settings.MEDIA_ROOT
     SITE_URL=local_settings.SITE_URL

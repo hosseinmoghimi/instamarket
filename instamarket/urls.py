@@ -4,7 +4,7 @@ from django.urls import path,include
 
 
 
-from .settings import MEDIA_URL,MEDIA_ROOT
+from .settings import MEDIA_URL,MEDIA_ROOT,STATIC_URL,STATIC_ROOT
 from django.views.static import serve 
 from django.conf.urls import url
 
@@ -14,7 +14,7 @@ urlpatterns = [
 
 
     url(r'^'+MEDIA_URL[1:]+'(?P<path>.*)$', serve,{'document_root': MEDIA_ROOT}), 
-    # url(r'^'+STATIC_URL[1:]+'(?P<path>.*)$', serve,{'document_root': STATIC_ROOT}),  
+    url(r'^'+STATIC_URL[1:]+'(?P<path>.*)$', serve,{'document_root': STATIC_ROOT}),  
 ]
 
 
