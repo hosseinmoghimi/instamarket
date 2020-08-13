@@ -1,1 +1,7 @@
+pip
 django
+django-cleanup
+django-resized
+django-tinymce
+djangorestframework
+persiantools
