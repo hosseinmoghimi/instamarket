@@ -4,6 +4,11 @@ import os
 import sys
 from . import server_settings
 from . import local_settings
+
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+
+
+
 ON_SERVER=True
 if '--no-color' in sys.argv:
     ON_SERVER=False
@@ -116,3 +121,4 @@ USE_L10N = True
 USE_TZ = True
 
 
+STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
