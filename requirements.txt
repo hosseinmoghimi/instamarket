@@ -5,7 +5,6 @@ django-resized
 django-tinymce
 djangorestframework
 persiantools
-dj-database-url
 gunicorn
 django_heroku
 PyMySQL
