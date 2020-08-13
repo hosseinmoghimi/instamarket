@@ -4,6 +4,7 @@ import os
 import sys
 from . import server_settings
 from . import local_settings
+import django_heroku
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -121,3 +123,5 @@ USE_L10N = True
 
 USE_TZ = True
 
+django_heroku.settings(locals())
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

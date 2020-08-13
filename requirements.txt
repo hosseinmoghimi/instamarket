@@ -6,3 +6,5 @@ django-tinymce
 djangorestframework
 persiantools
 dj-database-url
+gunicorn
+django-heroku
