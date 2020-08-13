@@ -2,7 +2,6 @@
 from pathlib import Path
 import os
 import sys
-import django_heroku
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -18,6 +17,7 @@ if '--no-color' in sys.argv:
 if 'gunicorn' in sys.argv:
     ON_HEROKU=True    
     from . import heroku_settings
+    import django_heroku
 
 else:
     ON_SERVER=True
@@ -122,7 +122,11 @@ if ON_HEROKU:
     ADMIN_URL=heroku_settings.ADMIN_URL
     STATICFILES_DIRS=heroku_settings.STATICFILES_DIRS
     DATABASES=heroku_settings.DATABASES
-    MYSQL=heroku_settings.MYSQL
+    MYSQL=heroku_settings.MYSQL    
+    django_heroku.settings(locals())
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 
 if ON_SERVER:
     SECRET_KEY = server_settings.SECRET_KEY
@@ -160,9 +164,5 @@ if ON_MAGGIE:
 
 
 
-
-
-django_heroku.settings(locals())
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
