@@ -5,3 +5,4 @@ django-resized
 django-tinymce
 djangorestframework
 persiantools
+dj-database-url
