@@ -8,9 +8,9 @@ secret_file_path=os.path.join(os.path.join(BASE_DIR, 'secret'),'secret.sec')
 
 SECRET_KEY = "5a@8$h^m0-jtc+w7%xnd7q8r2pct8v77+p^+jt-%&-x8&iw92r"
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['khafonline.com','www.khafonline.com']
+ALLOWED_HOSTS = ['khafonline.com','www.khafonline.com','dashboard.heroku.com','www.heroku.com','heroku.com']
 
 DATABASES = {
     # 'default': {
