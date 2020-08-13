@@ -3,7 +3,6 @@ from pathlib import Path
 import os
 import sys
 from . import server_settings
-from . import local_settings
 import django_heroku
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -12,7 +11,8 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 ON_SERVER=True
 if '--no-color' in sys.argv:
-    ON_SERVER=False
+    ON_SERVER=False    
+    from . import local_settings
 
 
 

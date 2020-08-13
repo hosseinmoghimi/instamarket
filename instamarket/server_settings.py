@@ -6,8 +6,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 secret_file_path=os.path.join(os.path.join(BASE_DIR, 'secret'),'secret.sec')
 
-with open(secret_file_path) as f:
-    SECRET_KEY = f.read().strip()
+SECRET_KEY = "5a@8$h^m0-jtc+w7%xnd7q8r2pct8v77+p^+jt-%&-x8&iw92r"
 
 DEBUG = False
 
