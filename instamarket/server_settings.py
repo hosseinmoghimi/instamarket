@@ -24,10 +24,10 @@ DATABASES = {
 
 TIME_ZONE = 'Asia/Tehran'
 
-SITE_URL='/'
+SITE_URL='/instamarket/'
 ADMIN_URL=SITE_URL+'admin/'
-STATIC_URL = '/static/'
+STATIC_URL = SITE_URL+'static/'
 STATIC_ROOT = '/home/khafonli/public_html/instamarket/static/'
-MEDIA_URL =  '/media/'
+MEDIA_URL =  SITE_URL+'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS=['/home/khafonli/instamarket/static']
