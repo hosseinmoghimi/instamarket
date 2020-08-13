@@ -46,3 +46,4 @@ STATIC_ROOT = '/app/static/'
 MEDIA_URL =  SITE_URL+'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS=['/home/khafonli/instamarket/static']
+STATICFILES_DIRS=['/app/static']
