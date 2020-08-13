@@ -6,22 +6,29 @@ import sys
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 
-ON_HEROKU=False
-ON_SERVER=False
 ON_MAGGIE=False
+ON_HEROKU=False
+ON_SERVER=True
 
 if '--no-color' in sys.argv:
     ON_MAGGIE=True  
+    ON_HEROKU=False
+    ON_SERVER=False
     from . import local_settings
 
-if 'gunicorn' in sys.argv:
-    ON_HEROKU=True    
+elif ON_HEROKU:
+    ON_MAGGIE=False  
+    ON_HEROKU=True
+    ON_SERVER=False   
     from . import heroku_settings
     import django_heroku
 
 else:
     ON_SERVER=True
+    ON_MAGGIE=False  
+    ON_HEROKU=False
     from . import server_settings
+
 
 
 # Application definition
@@ -56,7 +63,7 @@ if ON_HEROKU:
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
-    
+
 ROOT_URLCONF = 'instamarket.urls'
 
 TEMPLATES = [
