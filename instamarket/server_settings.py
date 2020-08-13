@@ -35,11 +35,14 @@ MYSQL=False
 TIME_ZONE = 'Asia/Tehran'
 
 SITE_URL='/instamarket/'
+SITE_URL='/'
+
 ADMIN_URL=SITE_URL+'admin/'
 STATIC_URL = SITE_URL+'static/'
-STATIC_ROOT = '/home/khafonli/public_html/instamarket/static/'
 
+STATIC_ROOT = '/home/khafonli/public_html/instamarket/static/'
 STATIC_ROOT = '/app/static/'
+
 MEDIA_URL =  SITE_URL+'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS=['/home/khafonli/instamarket/static']
