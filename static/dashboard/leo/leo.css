@@ -1,13 +1,13 @@
 @font-face {
     font-family: "HMFONT";
-    src: url("./ISM.woff2") format("woff2"), url("./ISM.woff") format("woff"), url("./ISM.ttf") format("truetype");
+    src: url("./ISM.woff2") format("woff2");
     font-style: normal;
     font-weight: normal;
 }
 
 @font-face {
     font-family: "HMFONT";
-    src: url("./ISB.woff2") format("woff2"), url("./ISB.woff") format("woff"), url("./ISB.ttf") format("truetype");
+    src: url("./ISB.woff2") format("woff2");
     font-style: normal;
     font-weight: bold;
 }
