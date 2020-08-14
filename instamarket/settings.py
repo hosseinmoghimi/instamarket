@@ -38,6 +38,7 @@ elif ON_HEROKU:
 # Application definition
 
 INSTALLED_APPS = [
+    'manager',
     'django_cleanup',
     'rest_framework',
     'dashboard',
