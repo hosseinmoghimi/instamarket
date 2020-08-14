@@ -22,13 +22,6 @@ if '--no-color' in sys.argv:
     ON_SERVER=False
     from . import local_settings
 
-elif ON_HEROKU:
-    ON_MAGGIE=False  
-    ON_HEROKU=True
-    ON_SERVER=False   
-    from . import heroku_settings
-    import django_heroku
-
 else:
     ON_SERVER=True
     ON_MAGGIE=False  
@@ -132,28 +125,6 @@ USE_TZ = True
 
 
 
-
-
-if ON_HEROKU:
-    SECRET_KEY = heroku_settings.SECRET_KEY
-    DEBUG = heroku_settings.DEBUG
-    ALLOWED_HOSTS = heroku_settings.ALLOWED_HOSTS
-    TIME_ZONE = heroku_settings.TIME_ZONE
-    STATIC_URL = heroku_settings.STATIC_URL
-    STATIC_ROOT = heroku_settings.STATIC_ROOT
-    MEDIA_URL = heroku_settings.MEDIA_URL
-    MEDIA_ROOT = heroku_settings.MEDIA_ROOT
-    SITE_URL=heroku_settings.SITE_URL
-    ADMIN_URL=heroku_settings.ADMIN_URL
-    STATICFILES_DIRS=heroku_settings.STATICFILES_DIRS
-    DATABASES=heroku_settings.DATABASES
-    MYSQL=heroku_settings.MYSQL    
-    django_heroku.settings(locals())
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    PUSHER_IS_ENABLE=heroku_settings.PUSHER_IS_ENABLE
-    REMOTE_MEDIA=heroku_settings.REMOTE_MEDIA
-    COMING_SOON=heroku_settings.COMING_SOON
-    DOWNLOAD_ROOT=heroku_settings.DOWNLOAD_ROOT
 
 
 if ON_SERVER:
