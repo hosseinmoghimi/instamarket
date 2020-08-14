@@ -14,6 +14,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
+SITE_URL='/'
 ADMIN_URL=SITE_URL+'admin/'
 COMING_SOON=False
 DEBUG = True
@@ -23,7 +24,6 @@ MEDIA_ROOT = '/app/media/'
 MYSQL=False
 PUSHER_IS_ENABLE=False
 REMOTE_MEDIA=False
-SITE_URL='/'
 STATICFILES_DIRS=['/app/static/']
 STATIC_ROOT = '/app/staticfiles/'
 STATIC_URL = SITE_URL+'static/'
