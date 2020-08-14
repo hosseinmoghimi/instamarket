@@ -14,11 +14,11 @@ with open(secret_file_path) as f:
 
 ALLOWED_HOSTS=['instamarket-django.herokuapp.com','www.herokuapp.com','dashboard.heroku.com','www.heroku.com','heroku.com']
 
-# DATABASES = {
+DATABASES = {
 
-# }
+}
 
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 SITE_URL='/'
 ADMIN_URL=SITE_URL+'admin/'
