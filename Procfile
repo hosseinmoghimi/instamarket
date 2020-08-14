@@ -1,1 +1,1 @@
-web: gunicorn instamarket.heroku_wsgi
+web: gunicorn instamarket.wsgi

@@ -7,12 +7,16 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 
 ON_MAGGIE=False
-ON_HEROKU=False
-ON_SERVER=True
+ON_HEROKU=True
+ON_SERVER=False
 
 
 
-
+if ON_HEROKU:
+    ON_MAGGIE=False  
+    ON_SERVER=False
+    from . import heroku_settings
+    import django_heroku
 
 
 
@@ -127,6 +131,27 @@ USE_TZ = True
 
 
 
+if ON_HEROKU:
+    SECRET_KEY = heroku_settings.SECRET_KEY
+    DEBUG = heroku_settings.DEBUG
+    ALLOWED_HOSTS = heroku_settings.ALLOWED_HOSTS
+    TIME_ZONE = heroku_settings.TIME_ZONE
+    STATIC_URL = heroku_settings.STATIC_URL
+    STATIC_ROOT = heroku_settings.STATIC_ROOT
+    MEDIA_URL = heroku_settings.MEDIA_URL
+    MEDIA_ROOT = heroku_settings.MEDIA_ROOT
+    SITE_URL=heroku_settings.SITE_URL
+    ADMIN_URL=heroku_settings.ADMIN_URL
+    STATICFILES_DIRS=heroku_settings.STATICFILES_DIRS
+    DATABASES=heroku_settings.DATABASES
+    MYSQL=heroku_settings.MYSQL
+    PUSHER_IS_ENABLE=heroku_settings.PUSHER_IS_ENABLE
+    REMOTE_MEDIA=heroku_settings.REMOTE_MEDIA
+    COMING_SOON=heroku_settings.COMING_SOON
+    DOWNLOAD_ROOT=heroku_settings.DOWNLOAD_ROOT
+    django_heroku.settings(locals())
+    
+
 if ON_SERVER:
     SECRET_KEY = server_settings.SECRET_KEY
     DEBUG = server_settings.DEBUG
@@ -145,6 +170,9 @@ if ON_SERVER:
     REMOTE_MEDIA=server_settings.REMOTE_MEDIA
     COMING_SOON=server_settings.COMING_SOON
     DOWNLOAD_ROOT=server_settings.DOWNLOAD_ROOT
+
+
+    
 if ON_MAGGIE:    
     SECRET_KEY = local_settings.SECRET_KEY
     DEBUG = local_settings.DEBUG
