@@ -12,3 +12,6 @@ django-mysql
 mysqlclient
 wheel
 dj_database_url
+qrcode
+openpyxl
+pillow

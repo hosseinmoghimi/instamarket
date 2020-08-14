@@ -49,3 +49,7 @@ STATIC_ROOT = '/home/khafonli/public_html/instamarket/staticfiles/'
 MEDIA_URL =  SITE_URL+'media/'
 MEDIA_ROOT = '/home/khafonli/public_html/instamarket/media/'
 STATICFILES_DIRS=['/home/khafonli/instamarket/static/']
+PUSHER_IS_ENABLE=False
+REMOTE_MEDIA=False
+COMING_SOON=False
+DOWNLOAD_ROOT=os.path.join(BASE_DIR,'download')

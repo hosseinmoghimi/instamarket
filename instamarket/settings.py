@@ -40,6 +40,8 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
+    'django_cleanup',
+    'rest_framework',
     'dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -148,7 +150,10 @@ if ON_HEROKU:
     MYSQL=heroku_settings.MYSQL    
     django_heroku.settings(locals())
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+    PUSHER_IS_ENABLE=heroku_settings.PUSHER_IS_ENABLE
+    REMOTE_MEDIA=heroku_settings.REMOTE_MEDIA
+    COMING_SOON=heroku_settings.COMING_SOON
+    DOWNLOAD_ROOT=heroku_settings.DOWNLOAD_ROOT
 
 
 if ON_SERVER:
@@ -165,7 +170,10 @@ if ON_SERVER:
     STATICFILES_DIRS=server_settings.STATICFILES_DIRS
     DATABASES=server_settings.DATABASES
     MYSQL=server_settings.MYSQL
-
+    PUSHER_IS_ENABLE=server_settings.PUSHER_IS_ENABLE
+    REMOTE_MEDIA=server_settings.REMOTE_MEDIA
+    COMING_SOON=server_settings.COMING_SOON
+    DOWNLOAD_ROOT=server_settings.DOWNLOAD_ROOT
 if ON_MAGGIE:    
     SECRET_KEY = local_settings.SECRET_KEY
     DEBUG = local_settings.DEBUG
@@ -180,6 +188,10 @@ if ON_MAGGIE:
     STATICFILES_DIRS=local_settings.STATICFILES_DIRS
     DATABASES=local_settings.DATABASES
     MYSQL=local_settings.MYSQL
+    PUSHER_IS_ENABLE=local_settings.PUSHER_IS_ENABLE
+    REMOTE_MEDIA=local_settings.REMOTE_MEDIA
+    COMING_SOON=local_settings.COMING_SOON
+    DOWNLOAD_ROOT=local_settings.DOWNLOAD_ROOT
 
 
 

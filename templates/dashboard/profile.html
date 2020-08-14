@@ -22,7 +22,7 @@
         {% if upload_profile_image_form %}
 
 
-        <form enctype="multipart/form-data" action="{% url 'dashboard:edit_profile_image' %}" method="POST">
+        <form enctype="multipart/form-data" action="{% url 'dashboard:change_profile_image' %}" method="POST">
           {% csrf_token %}
 
           <input name="profile_id" value="{{selected_profile.id}}" type="hidden" />

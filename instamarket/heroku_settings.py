@@ -46,3 +46,7 @@ STATIC_ROOT = '/app/staticfiles/'
 MEDIA_URL =  SITE_URL+'media/'
 MEDIA_ROOT = '/app/media/'
 STATICFILES_DIRS=['/app/static/']
+PUSHER_IS_ENABLE=False
+REMOTE_MEDIA=False
+COMING_SOON=False
+DOWNLOAD_ROOT=os.path.join(BASE_DIR,'download')
