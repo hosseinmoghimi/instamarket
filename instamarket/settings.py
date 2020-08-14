@@ -7,8 +7,8 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 
 ON_MAGGIE=False
-ON_HEROKU=True
-ON_SERVER=False
+ON_HEROKU=False
+ON_SERVER=True
 
 
 
