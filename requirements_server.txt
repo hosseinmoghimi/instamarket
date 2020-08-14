@@ -1,0 +1,15 @@
+pip
+django
+django-cleanup
+django-resized
+django-tinymce
+djangorestframework
+persiantools
+PyMySQL
+django-mysql
+mysqlclient
+wheel
+dj_database_url
+qrcode
+openpyxl
+pillow
