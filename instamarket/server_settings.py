@@ -12,7 +12,7 @@ with open(secret_file_path) as f:
     SECRET_KEY = f.read().strip()
 DEBUG = True
 
-ALLOWED_HOSTS = ['khafonline.com','www.khafonline.com','instamarket-django.herokuapp.com','www.herokuapp.com','dashboard.heroku.com','www.heroku.com','heroku.com']
+ALLOWED_HOSTS = ['khafonline.com','www.khafonline.com']
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',

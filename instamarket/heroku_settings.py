@@ -6,7 +6,13 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
+secret_file_path=os.path.join(os.path.join(BASE_DIR, 'secret'),'secret.sec')
 
+with open(secret_file_path) as f:
+    SECRET_KEY = f.read().strip()
+
+
+ALLOWED_HOSTS=['instamarket-django.herokuapp.com','www.herokuapp.com','dashboard.heroku.com','www.heroku.com','heroku.com']
 
 # DATABASES = {
 
