@@ -10,7 +10,7 @@ secret_file_path=os.path.join(os.path.join(BASE_DIR, 'secret'),'secret.sec')
 
 with open(secret_file_path) as f:
     SECRET_KEY = f.read().strip()
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['khafonline.com','www.khafonline.com']
 DATABASES = {
