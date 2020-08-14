@@ -157,7 +157,7 @@ class Notification(models.Model):
     seen=models.BooleanField(_('دیده شد'),default=False)
     priority=models.IntegerField(_("اولویت"),default=1000)
     date_added=models.DateTimeField(_('تاریخ ایجاد'),auto_now_add=True,auto_now=False)
-    date_seen=models.DateTimeField(_('تاریخ دیده شده'),auto_now_add=False,auto_now=False)
+    date_seen=models.DateTimeField(_('تاریخ دیده شده'),auto_now_add=False,auto_now=False,null=True,blank=True)
     icon=models.CharField(_("آیکون"), max_length=50,default='notification_important')
     color=models.CharField(_("رنگ"), choices=ColorEnum.choices,default=ColorEnum.INFO, max_length=500,null=True,blank=True)
     # def send(self,user,channel_name,event_name):

@@ -24,7 +24,7 @@
                 </h3>
             </div>
             <div class="card-body">
-                <!-- <form action="{% url 'pusher:send_channel' %}" method="POST"> -->
+                <!-- <form action="{1% url 'pusher:send_channel' %}" method="POST"> -->
                 <form @submit.prevent="send_notification">
                     {% csrf_token %}
                     <div class="row">
