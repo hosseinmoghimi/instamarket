@@ -12,12 +12,6 @@ ON_SERVER=False
 
 
 
-if ON_HEROKU:
-    ON_MAGGIE=False  
-    ON_SERVER=False
-    from . import heroku_settings
-    import django_heroku
-
 
 
 if '--no-color' in sys.argv:
@@ -26,11 +20,18 @@ if '--no-color' in sys.argv:
     ON_SERVER=False
     from . import local_settings
 
-else:
+elif ON_SERVER:
     ON_SERVER=True
     ON_MAGGIE=False  
     ON_HEROKU=False
     from . import server_settings
+    
+elif ON_HEROKU:
+    ON_MAGGIE=False  
+    ON_SERVER=False
+    ON_HEROKU=True
+    from . import heroku_settings
+    import django_heroku
 
 
 
@@ -132,65 +133,65 @@ USE_TZ = True
 
 
 if ON_HEROKU:
-    SECRET_KEY = heroku_settings.SECRET_KEY
-    DEBUG = heroku_settings.DEBUG
-    ALLOWED_HOSTS = heroku_settings.ALLOWED_HOSTS
-    TIME_ZONE = heroku_settings.TIME_ZONE
-    STATIC_URL = heroku_settings.STATIC_URL
-    STATIC_ROOT = heroku_settings.STATIC_ROOT
-    MEDIA_URL = heroku_settings.MEDIA_URL
-    MEDIA_ROOT = heroku_settings.MEDIA_ROOT
-    SITE_URL=heroku_settings.SITE_URL
     ADMIN_URL=heroku_settings.ADMIN_URL
-    STATICFILES_DIRS=heroku_settings.STATICFILES_DIRS
+    ALLOWED_HOSTS = heroku_settings.ALLOWED_HOSTS
+    COMING_SOON=heroku_settings.COMING_SOON
     DATABASES=heroku_settings.DATABASES
+    DOWNLOAD_ROOT=heroku_settings.DOWNLOAD_ROOT
+    DEBUG = heroku_settings.DEBUG
+    MEDIA_ROOT = heroku_settings.MEDIA_ROOT
+    MEDIA_URL = heroku_settings.MEDIA_URL
     MYSQL=heroku_settings.MYSQL
     PUSHER_IS_ENABLE=heroku_settings.PUSHER_IS_ENABLE
     REMOTE_MEDIA=heroku_settings.REMOTE_MEDIA
-    COMING_SOON=heroku_settings.COMING_SOON
-    DOWNLOAD_ROOT=heroku_settings.DOWNLOAD_ROOT
+    SECRET_KEY = heroku_settings.SECRET_KEY
+    SITE_URL=heroku_settings.SITE_URL
+    STATIC_ROOT = heroku_settings.STATIC_ROOT
+    STATICFILES_DIRS=heroku_settings.STATICFILES_DIRS
+    STATIC_URL = heroku_settings.STATIC_URL
+    TIME_ZONE = heroku_settings.TIME_ZONE
     django_heroku.settings(locals())
     
 
-if ON_SERVER:
-    SECRET_KEY = server_settings.SECRET_KEY
-    DEBUG = server_settings.DEBUG
-    ALLOWED_HOSTS = server_settings.ALLOWED_HOSTS
-    TIME_ZONE = server_settings.TIME_ZONE
-    STATIC_URL = server_settings.STATIC_URL
-    STATIC_ROOT = server_settings.STATIC_ROOT
-    MEDIA_URL = server_settings.MEDIA_URL
-    MEDIA_ROOT = server_settings.MEDIA_ROOT
-    SITE_URL=server_settings.SITE_URL
+elif ON_SERVER:
     ADMIN_URL=server_settings.ADMIN_URL
-    STATICFILES_DIRS=server_settings.STATICFILES_DIRS
+    ALLOWED_HOSTS = server_settings.ALLOWED_HOSTS
+    COMING_SOON=server_settings.COMING_SOON
     DATABASES=server_settings.DATABASES
+    DEBUG = server_settings.DEBUG
+    DOWNLOAD_ROOT=server_settings.DOWNLOAD_ROOT
+    MEDIA_ROOT = server_settings.MEDIA_ROOT
+    MEDIA_URL = server_settings.MEDIA_URL
     MYSQL=server_settings.MYSQL
     PUSHER_IS_ENABLE=server_settings.PUSHER_IS_ENABLE
     REMOTE_MEDIA=server_settings.REMOTE_MEDIA
-    COMING_SOON=server_settings.COMING_SOON
-    DOWNLOAD_ROOT=server_settings.DOWNLOAD_ROOT
+    SECRET_KEY = server_settings.SECRET_KEY
+    SITE_URL=server_settings.SITE_URL
+    STATIC_ROOT = server_settings.STATIC_ROOT
+    STATIC_URL = server_settings.STATIC_URL
+    STATICFILES_DIRS=server_settings.STATICFILES_DIRS
+    TIME_ZONE = server_settings.TIME_ZONE
 
 
-    
-if ON_MAGGIE:    
-    SECRET_KEY = local_settings.SECRET_KEY
-    DEBUG = local_settings.DEBUG
-    ALLOWED_HOSTS = local_settings.ALLOWED_HOSTS
-    TIME_ZONE = local_settings.TIME_ZONE
-    STATIC_URL = local_settings.STATIC_URL
-    STATIC_ROOT = local_settings.STATIC_ROOT
-    MEDIA_URL = local_settings.MEDIA_URL
-    MEDIA_ROOT = local_settings.MEDIA_ROOT
-    SITE_URL=local_settings.SITE_URL
+
+elif ON_MAGGIE:    
     ADMIN_URL=local_settings.ADMIN_URL    
-    STATICFILES_DIRS=local_settings.STATICFILES_DIRS
+    ALLOWED_HOSTS = local_settings.ALLOWED_HOSTS
+    COMING_SOON=local_settings.COMING_SOON
     DATABASES=local_settings.DATABASES
+    DEBUG = local_settings.DEBUG
+    DOWNLOAD_ROOT=local_settings.DOWNLOAD_ROOT
+    MEDIA_ROOT = local_settings.MEDIA_ROOT
+    MEDIA_URL = local_settings.MEDIA_URL
     MYSQL=local_settings.MYSQL
     PUSHER_IS_ENABLE=local_settings.PUSHER_IS_ENABLE
     REMOTE_MEDIA=local_settings.REMOTE_MEDIA
-    COMING_SOON=local_settings.COMING_SOON
-    DOWNLOAD_ROOT=local_settings.DOWNLOAD_ROOT
+    SECRET_KEY = local_settings.SECRET_KEY
+    SITE_URL=local_settings.SITE_URL
+    STATIC_ROOT = local_settings.STATIC_ROOT
+    STATIC_URL = local_settings.STATIC_URL
+    STATICFILES_DIRS=local_settings.STATICFILES_DIRS
+    TIME_ZONE = local_settings.TIME_ZONE
 
 
 
