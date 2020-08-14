@@ -158,6 +158,7 @@ class AuthView(View):
                     context['message']='نام کاربری و کلمه عبور صحیح نمی باشد'
                     context['login_form']=LoginForm()
                     context['register_form']=RegisterForm()
+                    context['reset_password_form']=ResetPasswordForm()
                     return render(request,TEMPLATE_ROOT+'login.html',context)
         else:      
             return redirect(reverse('dashboard:login'))
