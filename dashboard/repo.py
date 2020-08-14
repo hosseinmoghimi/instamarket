@@ -251,7 +251,7 @@ class ProfileRepo:
             self.user=None          
         
     def list_all(self):
-        if self.user.is_authenticated:
+        if self.user is not None and self.user.is_authenticated:
             return self.objects.all()
     
     def reset_selected_profile(self,user):

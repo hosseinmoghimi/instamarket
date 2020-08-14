@@ -274,6 +274,8 @@ class ManagerView(View):
     
     def manager(self,request):
         user=request.user
+        if user is not None and user.is_authenticated:
+            return BasicView().home(request)
         context=getContext(request=request)
         priority_range=range(6)
         context['priority_range']=priority_range
