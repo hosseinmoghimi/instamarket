@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 import sys
 import dj_database_url
+import django_heroku
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -138,3 +139,4 @@ REMOTE_MEDIA=False
 COMING_SOON=False
 DOWNLOAD_ROOT=os.path.join(BASE_DIR,'download')
 
+django_heroku.settings(locals())
