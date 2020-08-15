@@ -12,7 +12,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('dashboard.urls')),
     path('project_manager/',include('manager.urls')),
-
+    path('market/',include('market.urls')),
+    path('pusher/',include('leopusher.urls')),
 
     url(r'^media/(?P<path>.*)$', serve,{'document_root': MEDIA_ROOT}), 
     url(r'^static/(?P<path>.*)$', serve,{'document_root': STATIC_ROOT}),  

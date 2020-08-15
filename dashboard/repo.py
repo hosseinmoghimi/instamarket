@@ -350,7 +350,7 @@ class ProfileRepo:
         current_profile=self.get_by_user(user)
         if current_profile is None:
             return None
-        if user.has_perm('leodashboard.view_profile'):
+        if user.has_perm('dashboard.view_profile'):
             profile=self.objects.filter(pk=profile_id)
             if len(profile)==1:
                 return profile[0]

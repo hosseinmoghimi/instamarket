@@ -13,3 +13,4 @@ dj_database_url
 qrcode
 openpyxl
 pillow
+pusher

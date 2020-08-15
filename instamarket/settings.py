@@ -38,6 +38,8 @@ elif ON_HEROKU:
 # Application definition
 
 INSTALLED_APPS = [
+    'leopusher',
+    'market',
     'manager',
     'django_cleanup',
     'rest_framework',
