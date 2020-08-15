@@ -13,7 +13,7 @@ from .serializers import *
 from dashboard.forms import UploadProfileImageForm,EditProfileForm,ChangeProfileForm
 import datetime
 
-TEMPLATE_ROOT='shop/'
+TEMPLATE_ROOT='market/'
 def getContext(request):
     user=request.user
     context=dashboard_getContext(request)
@@ -175,7 +175,7 @@ class ShopView(View):
                 supplier_id=ShopRepo(user=user).get(shop_id=shop_id).supplier.id
                 ShopRepo(user=request.user).remove(shop_id=shop_id)
                 if supplier_id is not None:
-                    return redirect(reverse('shop:supplier',kwargs={'supplier_id':supplier_id}))
+                    return redirect(reverse('market:supplier',kwargs={'supplier_id':supplier_id}))
     
     
     def add_shop(self,request):
@@ -199,7 +199,7 @@ class ShopView(View):
                 category=CategoryRepo(user=request.user).add(name=name,parent_id=parent_id)
                 if parent_id is None:
                     parent_id=0
-                return redirect(reverse('shop:list',kwargs={'parent_id':parent_id}))
+                return redirect(reverse('market:list',kwargs={'parent_id':parent_id}))
     def add_product(self,request):
         if request.method=='POST':
             add_product_form=AddProductForm(request.POST)
@@ -208,7 +208,7 @@ class ShopView(View):
                 category_id= add_product_form.cleaned_data['category_id']
                 name=add_product_form.cleaned_data['name']
                 product=ProductRepo(user=request.user).add(name=name,unit_name=unit_name,category_id=category_id)
-                return redirect(reverse('shop:list',kwargs={'parent_id':category_id}))
+                return redirect(reverse('market:list',kwargs={'parent_id':category_id}))
 
 class DownloadView(View):
     def get(self,request,*args,**kwargs):
@@ -309,8 +309,8 @@ class ProductView(View):
                 comment=add_product_comment_form.cleaned_data['comment']
                 product_comment=ProductRepo(user=request.user).add_comment(product_id=product_id,comment=comment)
                 if product_comment is not None:
-                    return redirect(reverse('shop:product',kwargs={'product_id':product_id}))
-        return redirect(reverse('shop:product',kwargs={'product_id':product_id}))
+                    return redirect(reverse('market:product',kwargs={'product_id':product_id}))
+        return redirect(reverse('market:product',kwargs={'product_id':product_id}))
 
     def get_list_xlsx(self,request):
         user=request.user
@@ -406,7 +406,7 @@ class CartView(View):
                 if orders is not None and len(orders)>0:
                     context=getContext(request)
                     context['page_confirm']={'orders':orders}
-                    return redirect(reverse('shop:cart',kwargs={'customer_id':customer_id}))
+                    return redirect(reverse('market:cart',kwargs={'customer_id':customer_id}))
 
 
     def remove_from_cart(self,request):
@@ -464,7 +464,7 @@ class IndexView(View):
                 user=CustomerRepo(user=request.user).register(request=request,username=username,password=password,first_name=first_name,last_name=last_name,region=region)                
                 if user is not None and user.is_authenticated:
                     
-                    return redirect(reverse('shop:profile'))
+                    return redirect(reverse('market:profile'))
                 else:
                     pass
         context=getContext(request)
@@ -667,7 +667,7 @@ class OrderView(View):
                 
                 if order is not None:
                     return redirect(order.get_absolute_url())
-        return redirect(reverse('shop:orders',kwargs={'profile_id':0}))
+        return redirect(reverse('market:orders',kwargs={'profile_id':0}))
     def do_pack_order(self,request):
         if request.method=='POST':
             do_pack_form=DoPackForm(request.POST)
@@ -681,7 +681,7 @@ class OrderView(View):
                 
                 if order is not None:
                     return redirect(order.get_absolute_url())
-        return redirect(reverse('shop:orders_supplier',kwargs={'supplier_id':0}))
+        return redirect(reverse('market:orders_supplier',kwargs={'supplier_id':0}))
     
     
     def do_ship_order(self,request):
@@ -694,7 +694,7 @@ class OrderView(View):
                 
                 if order is not None:
                     return redirect(order.get_absolute_url())
-        return redirect(reverse('shop:orders_shipper',kwargs={'shipper_id':0}))
+        return redirect(reverse('market:orders_shipper',kwargs={'shipper_id':0}))
     
     def order(self,request,order_id):
         user=request.user

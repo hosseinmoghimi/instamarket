@@ -106,22 +106,22 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("shop:list", kwargs={"parent_id": self.pk})
+        return reverse("market:list", kwargs={"parent_id": self.pk})
   
     def get_edit_url(self):
         return ADMIN_URL+APP_NAME+'/category/'+str(self.pk)+'/change/'
     
     def get_breadcrumb_li(self):
         if self is None:
-            home='<li class="breadcrumb-item"><a href="'+reverse('shop:list',kwargs={'parent_id':0})+'"><i class="material-icons ml-2">home</i>&nbsp;خانه</a></li>'        
+            home='<li class="breadcrumb-item"><a href="'+reverse('market:list',kwargs={'parent_id':0})+'"><i class="material-icons ml-2">home</i>&nbsp;خانه</a></li>'        
             return home
-        this_category_li='<li class="breadcrumb-item"><a href="'+reverse('shop:list',kwargs={'parent_id':self.pk})+'"><i class="material-icons ml-2">&nbsp;'+self.icon+'</i>'+self.name+'</a></li>'  
+        this_category_li='<li class="breadcrumb-item"><a href="'+reverse('market:list',kwargs={'parent_id':self.pk})+'"><i class="material-icons ml-2">&nbsp;'+self.icon+'</i>'+self.name+'</a></li>'  
         return Category.get_breadcrumb_li(self.parent)+this_category_li
 
     # def get_breadcrumb_li(self):
     #     if self.parent is None:
-    #         home='<li class="breadcrumb-item"><a href="'+reverse('shop:list',kwargs={'parent_id':0})+'">خانه</a></li>'        
-    #         return home+'<li class="breadcrumb-item"><a href="'+reverse('shop:list',kwargs={'parent_id':self.id})+'">'+self.name+'</a></li>'  
+    #         home='<li class="breadcrumb-item"><a href="'+reverse('market:list',kwargs={'parent_id':0})+'">خانه</a></li>'        
+    #         return home+'<li class="breadcrumb-item"><a href="'+reverse('market:list',kwargs={'parent_id':self.id})+'">'+self.name+'</a></li>'  
     #     else:
     #         return self.parent.get_breadcrumb_li()+self.get_breadcrumb_li()
     def get_breadcrumb(self):
@@ -157,7 +157,7 @@ class Accountant(Employee):
         verbose_name_plural = _("Accountants")
 
     def get_absolute_url(self):
-        return reverse('shop:accountant',kwargs={'accountant_id':self.pk})
+        return reverse('market:accountant',kwargs={'accountant_id':self.pk})
     def get_edit_url(self):
         return ADMIN_URL+APP_NAME+'/accountant/'+str(self.pk)+'/change/'
 
@@ -170,7 +170,7 @@ class Cashier(Employee):
 
 
     def get_absolute_url(self):
-        return reverse('shop:cashier',kwargs={'cashier_id':self.pk})
+        return reverse('market:cashier',kwargs={'cashier_id':self.pk})
     def get_edit_url(self):
         return ADMIN_URL+APP_NAME+'/cashier/'+str(self.pk)+'/change/'
 
@@ -183,7 +183,7 @@ class Manager(Employee):
 
     
     def get_absolute_url(self):
-        return reverse('shop:manager',kwargs={'manager_id':self.pk})
+        return reverse('market:manager',kwargs={'manager_id':self.pk})
     def get_edit_url(self):
         return ADMIN_URL+APP_NAME+'/manager/'+str(self.pk)+'/change/'
 
@@ -263,7 +263,7 @@ class Product(models.Model):
         return '%d : %s' % (self.pk, self.name)
 
     def get_absolute_url(self):
-        return reverse("shop:product", kwargs={"product_id": self.pk})
+        return reverse("market:product", kwargs={"product_id": self.pk})
     def get_edit_url(self):
         return ADMIN_URL+APP_NAME+'/product/'+str(self.pk)+'/change/'
 
@@ -302,6 +302,7 @@ class ProductComment(models.Model):
         verbose_name_plural = 'ProductComments'
 
 class Supplier(models.Model):
+    region = models.ForeignKey("dashboard.Region", verbose_name=_("region"), on_delete=models.CASCADE)
     profile=models.ForeignKey("dashboard.Profile", verbose_name=_("profile"),null=True,blank=True, on_delete=models.CASCADE)
     pre_title=models.CharField(_("پیش عنوان"), max_length=50,null=True,blank=True)
     title=models.CharField(_("عنوان"), max_length=50,null=True,blank=True)
@@ -321,7 +322,7 @@ class Supplier(models.Model):
         verbose_name = _("Supplier")
         verbose_name_plural = _("Suppliers")
     def get_orders_url(self):
-        return reverse('shop:orders_supplier',kwargs={'supplier_id':self.pk})
+        return reverse('market:orders_supplier',kwargs={'supplier_id':self.pk})
     def __str__(self):
         pre_title=  self.pre_title+' ' if self.pre_title else ''
         return pre_title+self.title
@@ -331,10 +332,11 @@ class Supplier(models.Model):
         
 
     def get_absolute_url(self):
-        return reverse('shop:supplier',kwargs={'supplier_id':self.pk})
+        return reverse('market:supplier',kwargs={'supplier_id':self.pk})
 
 
 class Shipper(models.Model):
+    region = models.ForeignKey("dashboard.Region", verbose_name=_("region"), on_delete=models.CASCADE)
     profile=models.ForeignKey("dashboard.Profile", verbose_name=_("profile"),null=True,blank=True, on_delete=models.CASCADE)
     title=models.CharField(_("نام موسسه"), max_length=50)
     # show=models.BooleanField(_("نمایش داده شود؟"),default=False)
@@ -362,7 +364,7 @@ class Customer(models.Model):
     profile=models.ForeignKey("dashboard.Profile", verbose_name=_("profile"),null=True,blank=True, on_delete=models.CASCADE)
     favorites=models.ManyToManyField("Product", verbose_name=_("favorites"),blank=True)
     def get_orders_url(self):
-        return reverse('shop:orders',kwargs={'customer_id':self.pk})
+        return reverse('market:orders',kwargs={'customer_id':self.pk})
     class Meta:
         verbose_name = _("Customer")
         verbose_name_plural = _("Customers")
@@ -376,7 +378,7 @@ class Customer(models.Model):
     def get_absolute_url(self):
         return reverse('dashboard:profile',kwargs={'profile_id':self.pk})
     def get_orders_url(self):
-        return reverse('shop:orders',kwargs={'customer_id':self.pk})
+        return reverse('market:orders',kwargs={'customer_id':self.pk})
     def get_edit_url(self):
         return ADMIN_URL+APP_NAME+'/customer/'+str(self.pk)+'/change/'
 
@@ -400,7 +402,7 @@ class Order(models.Model):
     cancel_date=models.DateTimeField(_("تاریخ انصراف"), auto_now=False, auto_now_add=False,null=True,blank=True)
     no_ship=models.BooleanField(_("خودم تحویل میگیرم"),default=False)
     def get_download_url(self):
-        return reverse('shop:download_order',kwargs={'order_id':self.pk})
+        return reverse('market:download_order',kwargs={'order_id':self.pk})
     def persian_order_date(self):
         if self.order_date is None:
             return None
@@ -451,7 +453,7 @@ class Order(models.Model):
             total=total+line.price*line.quantity
         return total
     def get_absolute_url(self):
-        return reverse("shop:order", kwargs={"order_id": self.pk})
+        return reverse("market:order", kwargs={"order_id": self.pk})
 
 class OrderLine(models.Model):
     order=models.ForeignKey("Order", verbose_name=_("فاکتور"), on_delete=models.CASCADE)
