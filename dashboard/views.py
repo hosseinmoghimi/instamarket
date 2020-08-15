@@ -284,7 +284,7 @@ class ManagerView(View):
         icons=list(IconsEnum)
         context['icons_s']=json.dumps(icons)
         context['site_profiles']=site_profiles
-        if user.has_perm('leodashboard.add_notification'):
+        if user.has_perm('dashboard.add_notification'):
             add_notification_form=AddNotificationForm()
             context['add_notification_form']=add_notification_form
         return render(request,TEMPLATE_ROOT+'manager.html',context)
