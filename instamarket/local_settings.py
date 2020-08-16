@@ -3,10 +3,6 @@ import os
 import dj_database_url
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
-secret_file_path=os.path.join(os.path.join(BASE_DIR, 'secret'),'secret.sec')
-
-with open(secret_file_path) as f:
-    SECRET_KEY = f.read().strip()
 
 DEBUG = True
 
@@ -16,7 +12,7 @@ DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'OPTIONS': {
-                'read_default_file': os.path.join(os.path.join(BASE_DIR, 'secret'),'local.cnf'),
+                'read_default_file': os.path.join(os.path.join(BASE_DIR, 'instamarket'),'secret_my_sql_local.cnf'),
 
             },
         }

@@ -163,6 +163,7 @@ class OrderRepo:
         self.objects=Order.objects.order_by('-id')
         self.user=user        
         self.profile=ProfileRepo(user=user).me
+    
     def do_pack(self, order_id, description, count_of_packs=1):
         profile = self.profile
         if profile is None:
@@ -186,11 +187,6 @@ class OrderRepo:
             if order is not None:
                 return order
 
-
-
-
-
-
     def cancel_order(self, order_id, description):
         profile = self.profile
         if profile is None:
@@ -207,6 +203,7 @@ class OrderRepo:
             order.save()
             if order is not None:
                 return order
+    
     def confirm_order(self, order_id, description):
         profile = ProfileRepo(user=self.user).me
         if profile is None:
@@ -222,6 +219,7 @@ class OrderRepo:
             order.save()
             if order is not None:
                 return order
+    
     def do_ship(self, order_id, description=''):
         shipper = ShipperRepo(user=self.user).me
         
@@ -345,6 +343,7 @@ class OrderRepo:
 
                 })
             return orders[:DEFAULT_ORDER_LIST_FOR_SUPPLIER]
+    
     def list_for_supplier(self,supplier_id):
         user=self.user
         supplier = SupplierRepo(user=user).get(supplier_id=supplier_id)
@@ -373,6 +372,11 @@ class OrderRepo:
     
     def list_for_customer(self,customer_id):
         customer = CustomerRepo(user=self.user).get(customer_id=customer_id)
+        profile=self.profile
+        if self.profile is None:
+            return []
+        if not (customer.profile == profile):
+            return []
 
         orders= self.objects.filter(customer=customer).order_by('-order_date')[:DEFAULT_ORDER_LIST_FOR_USER]
         return orders
@@ -383,6 +387,9 @@ class OrderRepo:
         profile = self.profile
         
         order = self.objects.get(pk=order_id)
+        if not (order.customer.profile==profile or self.user.has_perm('market.view_order') or order.supplier.profile==profile or (order.shipper and order.shipper.profile==profile) ) :
+            return None
+        
         # lines = OrderLineRepo(user=self.user).get_by_order(order_id=order_id)
         lines = OrderLineRepo(user=self.user).get_by_order(order_id=order_id).annotate(row_number=Window(
             expression=RowNumber(),
@@ -409,9 +416,7 @@ class CartRepo:
         self.objects=CartLine.objects
         self.user=user
         self.profile=ProfileRepo(user=user).me
-        
-        
-
+       
     def get_user_cart_for_api(self):
         user=self.user
         if user.is_authenticated:
@@ -456,6 +461,7 @@ class CartRepo:
                 total+=order.total
             cart = {'lines': cart_lines,'customer':customer, 'orders': orders,'total':total}            
             return cart
+    
     def get_cart_orders(self,customer_id=0,no_ship=None):
         if no_ship is None:
             no_ship=False
@@ -534,7 +540,7 @@ class CartRepo:
                                 unit_name=cart_line.shop.unit_name)
                             order_line.save()
                             cart_line.delete()
-                    order=OrderRepo(user=self.user).get(order_id=order.pk)
+                    # order=OrderRepo(user=self.user).get(order_id=order.pk)
                     # MyPusherChannel(user=self.user).submit(order_id=order.id,total=order.total(),supplier_id=order.supplier.id)
                     NotificationRepo(user=self.user).add(title='سفارش تایید شده',body=f'سفارش تایید شده به مبلغ {order.total()} تومان',link=order.get_absolute_url(),icon='alarm',profile_id=order.supplier.profile.pk,color='danger',priority=1)
                     ProfileTransactionRepo(user=self.user).add(

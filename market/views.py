@@ -1,7 +1,7 @@
 import pusher
 import json
 from .forms import *
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse,Http404
 from django.shortcuts import render,redirect,reverse
 from django.views import View
 from dashboard.excel import ReportWorkBook,ReportSheet
@@ -706,6 +706,8 @@ class OrderView(View):
         user=request.user
         profile=ProfileRepo(user=user).me
         order=OrderRepo(user=user).get(order_id=order_id)
+        if order is None:
+            raise Http404
         context=getContext(request=request)
         context['order']=order
         active_customer=CustomerRepo(user=user).me

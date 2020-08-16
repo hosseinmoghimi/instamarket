@@ -4,6 +4,9 @@ venv/
 secret/
 .vscode/
 media/
+secret_key.py
+secret_my_sql.cnf
+secret_my_sql_local.cnf
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

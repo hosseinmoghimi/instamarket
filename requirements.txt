@@ -16,3 +16,4 @@ qrcode
 openpyxl
 pillow
 pusher
+djecrety

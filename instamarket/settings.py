@@ -11,6 +11,14 @@ ON_HEROKU=False
 ON_SERVER=True
 
 
+# secret_file_path=os.path.join(os.path.join(BASE_DIR, 'secret'),'secret.key')
+
+# with open(secret_file_path) as f:
+#     SECRET_KEY = f.read().strip()
+
+
+from .secret_key import SECRET_KEY as SECRET_KEY_FROM_FILE
+SECRET_KEY=SECRET_KEY_FROM_FILE
 
 
 
@@ -44,6 +52,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'rest_framework',
     'dashboard',
+    'djecrety',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -147,7 +156,7 @@ if ON_HEROKU:
     MYSQL=heroku_settings.MYSQL
     PUSHER_IS_ENABLE=heroku_settings.PUSHER_IS_ENABLE
     REMOTE_MEDIA=heroku_settings.REMOTE_MEDIA
-    SECRET_KEY = heroku_settings.SECRET_KEY
+    # SECRET_KEY = heroku_settings.SECRET_KEY
     SITE_URL=heroku_settings.SITE_URL
     STATIC_ROOT = heroku_settings.STATIC_ROOT
     STATICFILES_DIRS=heroku_settings.STATICFILES_DIRS
@@ -168,7 +177,7 @@ elif ON_SERVER:
     MYSQL=server_settings.MYSQL
     PUSHER_IS_ENABLE=server_settings.PUSHER_IS_ENABLE
     REMOTE_MEDIA=server_settings.REMOTE_MEDIA
-    SECRET_KEY = server_settings.SECRET_KEY
+    # SECRET_KEY = server_settings.SECRET_KEY
     SITE_URL=server_settings.SITE_URL
     STATIC_ROOT = server_settings.STATIC_ROOT
     STATIC_URL = server_settings.STATIC_URL
@@ -189,7 +198,7 @@ elif ON_MAGGIE:
     MYSQL=local_settings.MYSQL
     PUSHER_IS_ENABLE=local_settings.PUSHER_IS_ENABLE
     REMOTE_MEDIA=local_settings.REMOTE_MEDIA
-    SECRET_KEY = local_settings.SECRET_KEY
+    # SECRET_KEY = local_settings.SECRET_KEY
     SITE_URL=local_settings.SITE_URL
     STATIC_ROOT = local_settings.STATIC_ROOT
     STATIC_URL = local_settings.STATIC_URL
