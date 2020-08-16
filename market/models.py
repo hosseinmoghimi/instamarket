@@ -310,12 +310,13 @@ class Supplier(models.Model):
     is_verified=models.BooleanField(_("تایید شده؟"),default=False)
     priority=models.IntegerField(_("اولویت"),default=1000)    
     location=models.CharField(_("موقعیت"), max_length=1200,blank=True)
-    agent=models.CharField(_("مسئول"), max_length=50,blank=True)
     body=models.CharField(_("متن"), max_length=5000,blank=True)
     big_image=models.ImageField(_("تصویر"), upload_to=IMAGE_FOLDER+'Supplier/',null=True,blank=True, height_field=None, width_field=None, max_length=None)
     video_title=models.CharField(_("عنوان ویدیو"),blank=True, max_length=100)
     video_link=models.CharField(_("لینک ویدیو"),blank=True, max_length=1000)
     ship_fee=models.IntegerField(_('هزینه ارسال بسته'),default=DEFAULT_SHIPPING_FEE)
+    address=models.CharField(_("آدرس"), max_length=100 , null=True,blank=True)
+    tel=models.CharField(_("تلفن"), max_length=50 , null=True,blank=True)
     def employees(self):
         return Employee.objects.filter(employer_supplier_id=self.pk)    
     class Meta:
@@ -329,7 +330,10 @@ class Supplier(models.Model):
     def name(self):
         pre_title=  self.pre_title+' ' if self.pre_title else ''
         return pre_title+self.title
-        
+    def mobile(self):
+        if self.profile is not None:
+            return self.profile.mobile 
+        return ""    
 
     def image(self):
         if self.image_origin:
@@ -348,14 +352,18 @@ class Shipper(models.Model):
     is_verified=models.BooleanField(_("تایید شده؟"),default=False)
     priority=models.IntegerField(_("اولویت"),default=1000)
     location=models.CharField(_("موقعیت"), max_length=1200,blank=True)
-    agent=models.CharField(_("مسئول"), max_length=50,blank=True)
     body=models.CharField(_("متن"), max_length=5000,blank=True)
     big_image=models.ImageField(_("تصویر"), upload_to=IMAGE_FOLDER+'Supplier/',null=True,blank=True, height_field=None, width_field=None, max_length=None)
     video_title=models.CharField(_("عنوان ویدیو"),blank=True, max_length=100)
     video_link=models.CharField(_("لینک ویدیو"),blank=True, max_length=1000)
+    address=models.CharField(_("آدرس"), max_length=100 , null=True,blank=True)
+    tel=models.CharField(_("تلفن"), max_length=50 , null=True,blank=True)
     def employees(self):
         return Employee.objects.filter(employer_supplier_id=self.pk)   
-    
+    def mobile(self):
+        if self.profile is not None:
+            return self.profile.mobile 
+        return ""    
     class Meta:
         verbose_name = _("Shipper")
         verbose_name_plural = _("Shippers")
@@ -512,10 +520,7 @@ class CartLine(models.Model):
         return self.quantity*self.shop.price 
 
 class DeliveryAddress(models.Model):
-    
     customer=models.ForeignKey("Customer", verbose_name=_("مشتری"), on_delete=models.CASCADE)
-    
-
     title=models.CharField(_("عنوان"), max_length=100,choices=AddressTitleEnum.choices,
         default=AddressTitleEnum.HOME)  
     agent=models.CharField(_("تحویل گیرنده"), max_length=100)  
@@ -523,7 +528,10 @@ class DeliveryAddress(models.Model):
     region=models.ForeignKey("dashboard.region",verbose_name=_("region"), on_delete=models.CASCADE)
     
     tel=models.CharField(_("تلفن"), max_length=100)  
-
+    def mobile(self):
+        if self.profile is not None:
+            return self.customer.mobile 
+        return ""    
     class Meta:
         verbose_name = _("DeliveryAddress")
         verbose_name_plural = _("DeliveryAddresses")

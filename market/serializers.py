@@ -11,7 +11,7 @@ class ShopRegionSerializer(serializers.ModelSerializer):
 class DeliveryAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model=DeliveryAddress
-        fields=['id','title','agent','street','city','tel']      
+        fields=['id','title','agent','mobile','street','region','tel']      
 
 class OrderLineSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,14 +23,14 @@ class OrderLineSerializer(serializers.ModelSerializer):
 class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
-        fields = ['id', 'name', 'agent', 'image', 'priority',
+        fields = ['id', 'name', 'profile', 'image', 'priority',
                   'address', 'mobile', 'body', 'ship_fee']
 
 
 class ShipperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shipper
-        fields = ['id', 'name', 'agent', 'image',
+        fields = ['id', 'name', 'profile', 'image',
                   'priority', 'address', 'tel', 'mobile', 'body']
 
 class ProductUnitSerializer(serializers.ModelSerializer):
