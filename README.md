@@ -31,12 +31,12 @@ echo "SITE_URL='/instamarket/'" >> instamarket/server_settings.py
 generate and view secret key:
 ```python
 rm instamarket/secret_key.py
-echo "SECRET_KEY='INITIAL_VALUE'" >> instamarket/secret_key.py
+echo "SECRET_KEY='PUT_YOUR_SECRET_KEY_HERE'" >> instamarket/secret_key.py
 python manage.py djecrety
 ```
-put it in specific file:
+copy and put it in specific file:
 ```bash
-echo "SECRET_KEY='put_generated_secret_key_here'" >> instamarket/secret_key.py
+vi instamarket/secret_key.py
 ```
 
 
