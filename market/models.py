@@ -331,6 +331,11 @@ class Supplier(models.Model):
         return pre_title+self.title
         
 
+    def image(self):
+        if self.image_origin:
+            return MEDIA_URL+str(self.image_origin)
+        else:
+            return STATIC_URL+'market/img/default_supplier.png'
     def get_absolute_url(self):
         return reverse('market:supplier',kwargs={'supplier_id':self.pk})
 
@@ -359,6 +364,11 @@ class Shipper(models.Model):
         return self.title
     def name(self):
         return self.title
+    def image(self):
+        if self.image_origin:
+            return MEDIA_URL+str(self.image_origin)
+        else:
+            return STATIC_URL+'market/img/default_shipper.png'
 
 class Customer(models.Model):
     profile=models.ForeignKey("dashboard.Profile", verbose_name=_("profile"),null=True,blank=True, on_delete=models.CASCADE)
