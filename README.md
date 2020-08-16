@@ -21,6 +21,7 @@ pip install -r requirements.txt
 
 generate and view secret key:
 ```python
+rm instamarket/secret_key.py
 echo "SECRET_KEY='INITIAL_VALUE'" >> instamarket/secret_key.py
 python manage.py djecrety
 ```
