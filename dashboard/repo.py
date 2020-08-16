@@ -112,21 +112,21 @@ class NotificationRepo:
         self.profile=ProfileRepo(user=user).me
         self.count=len(Notification.objects.filter(profile=self.profile).filter(seen=False))
     def add(self,profile_id,title,body,color,icon,link,priority=1,send_pusher=True):  
-        if self.user.has_perm('leopusher.change_pusherchannelevent'):      
-            notification=Notification(title=title,priority=priority,link=link,body=body,color=color,icon=icon,profile_id=profile_id)
-            notification.save()
-            if notification is not None:
-                # PUSHER_IS_ENABLE=ParameterRepo(user=self.user).get(ParametersEnum.PUSHER_IS_ENABLE).value
-                # if PUSHER_IS_ENABLE=='True':
-                #     PUSHER_IS_ENABLE=True
-                # else:
-                #     PUSHER_IS_ENABLE=False
-                # if send_pusher and PUSHER_IS_ENABLE:    
-                #     channel_name=PusherChannelNameEnum.NOTIFICATION
-                #     event_name=str(profile_id)
-                #     if PUSHER_IS_ENABLE:
-                #         notification.send(user=self.user,channel_name=channel_name,event_name=event_name)
-                return notification
+        notification=Notification(title=title,priority=priority,link=link,body=body,color=color,icon=icon,profile_id=profile_id)
+        # input(profile_id)
+        notification.save()
+        if notification is not None:
+            # PUSHER_IS_ENABLE=ParameterRepo(user=self.user).get(ParametersEnum.PUSHER_IS_ENABLE).value
+            # if PUSHER_IS_ENABLE=='True':
+            #     PUSHER_IS_ENABLE=True
+            # else:
+            #     PUSHER_IS_ENABLE=False
+            # if send_pusher and PUSHER_IS_ENABLE:    
+            #     channel_name=PusherChannelNameEnum.NOTIFICATION
+            #     event_name=str(profile_id)
+            #     if PUSHER_IS_ENABLE:
+            #         notification.send(user=self.user,channel_name=channel_name,event_name=event_name)
+            return notification
     def get(self,notification_id):
         profile=self.profile
         if profile is not None:

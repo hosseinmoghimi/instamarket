@@ -526,7 +526,7 @@ class CartLine(models.Model):
             return None 
         return PersianCalendar().from_gregorian(self.time_added) 
     def __str__(self):
-        return self.customer.name+' & '+str(self.quantity)+' # '+self.shop.unit_name +' '+self.shop.product.name+str(self.shop.price)+' $  ('+self.shop.supplier.name+')'
+        return f'{self.customer.profile.name()} & {self.quantity} # {self.shop.unit_name} {self.shop.product.name} {self.shop.price} $  ({self.shop.supplier.title})'
 
     def get_absolute_url(self):
         return reverse("CartLine_detail", kwargs={"pk": self.pk})

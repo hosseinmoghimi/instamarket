@@ -422,6 +422,12 @@ class CartView(View):
         
     def get(self,request,customer_id=0):
         user=request.user
+        if customer_id==0:
+            customer=CustomerRepo(user=user).me
+            if customer is not None:
+                customer_id=customer.pk
+            else:
+                redirect(reverse('market:home'))
         context=getContext(request)
         cart=CartRepo(user=user).get_by_customer(customer_id=customer_id)
         context['cart']=cart
@@ -624,7 +630,7 @@ class OrderView(View):
             supplier=SupplierRepo(user=user).get(supplier_id=supplier_id)
             orders=OrderRepo(user=user).list_for_supplier(supplier_id=supplier_id)
             context['supplier']=supplier
-            context['name']=supplier.name()
+            context['name']=supplier.title
             context['title_orders']='فروخته شده توسط '+supplier.name()
         
         elif shipper_id is not None:
@@ -679,7 +685,6 @@ class OrderView(View):
                 if count_of_packs is None:
                     count_of_packs=1
                 order=OrderRepo(user=request.user).do_pack(order_id=order_id,count_of_packs=count_of_packs,description=description)
-                
                 if order is not None:
                     return redirect(order.get_absolute_url())
         return redirect(reverse('market:orders_supplier',kwargs={'supplier_id':0}))
@@ -706,6 +711,8 @@ class OrderView(View):
         active_customer=CustomerRepo(user=user).me
         active_supplier=SupplierRepo(user=user).me
         active_shipper=ShipperRepo(user=user).me
+        # input(active_supplier)
+        # input(order.supplier)
         # do pack form
         if active_supplier is not None and order.supplier==active_supplier and order.status==OrderStatusEnum.ACCEPTED:
             do_pack_form=DoPackForm()

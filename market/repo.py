@@ -162,13 +162,14 @@ class OrderRepo:
     def __init__(self,user):
         self.objects=Order.objects.order_by('-id')
         self.user=user        
-        self.profile=ProfileRepo(user=self.user).me
+        self.profile=ProfileRepo(user=user).me
     def do_pack(self, order_id, description, count_of_packs=1):
         profile = self.profile
         if profile is None:
             return None
         order = self.objects.get(pk=order_id)
-        if order.supplier.id == profile.id and (order.status == OrderStatusEnum.PACKING or order.status==OrderStatusEnum.ACCEPTED):
+        if order.supplier.profile == profile and (order.status == OrderStatusEnum.PACKING or order.status==OrderStatusEnum.ACCEPTED):
+
             order.count_of_packs = count_of_packs
             if order.description is None:
                 order.description = ''
@@ -180,10 +181,15 @@ class OrderRepo:
             order.save()
             if not order.no_ship:
                 # MyPusherChannel(user=self.user).pack(order_id=order.id,region_id=order.supplier.region,count_of_packs=order.count_of_packs)
-                NotificationRepo(user=self.user).add(title=f'سفارش شماره {order.id} بسته بندی شده است.',link=order.get_absolute_url(),body=f'سفارش  شماره {order.id}  توسط {order.supplier.title} در {order.count_of_packs} بسته آماده ارسال می باشد.',icon='alarm',profile_id=order.customer.pk,color='success',priority=1)
+                NotificationRepo(user=self.user).add(title=f'سفارش شماره {order.id} بسته بندی شده است.',link=order.get_absolute_url(),body=f'سفارش  شماره {order.id}  توسط {order.supplier.title} در {order.count_of_packs} بسته آماده ارسال می باشد.',icon='alarm',profile_id=order.customer.profile.pk,color='success',priority=1)
                     
             if order is not None:
                 return order
+
+
+
+
+
 
     def cancel_order(self, order_id, description):
         profile = self.profile
@@ -225,12 +231,15 @@ class OrderRepo:
         if order.status == OrderStatusEnum.PACKED:
             if description is not None:
                 order.description += '<br>   & ' + \
-                    shipper.name+' : '+description
+                    shipper.title+' : '+description
             order.ship_date = datetime.datetime.now()
             order.status = OrderStatusEnum.SHIPPED
             order.shipper = shipper
             order.save()
             if order is not None:
+                NotificationRepo(user=self.user).add(title=f'سفارش شماره {order.id} ارسال شده است.',link=order.get_absolute_url(),body=f'سفارش  شماره {order.id}  توسط {order.shipper.title} ارسال شده است.',icon='alarm',profile_id=order.customer.profile.pk,color='success',priority=1)
+                NotificationRepo(user=self.user).add(title=f'سفارش شماره {order.id} ارسال شده است.',link=order.get_absolute_url(),body=f'سفارش  شماره {order.id}  توسط {order.shipper.title} ارسال شده است.',icon='alarm',profile_id=order.supplier.profile.pk,color='success',priority=1)
+                 
                 return order
         
 
@@ -241,11 +250,13 @@ class OrderRepo:
         order = OrderRepo(user=self.user).get(order_id=order_id)
         if order.status == OrderStatusEnum.SHIPPED or (order.status == OrderStatusEnum.PACKED and order.no_ship==True):
             if description is not None:
-                order.description +='<br>   & '+customer.name+' : '+description
+                order.description +='<br>   & '+customer.profile.name()+' : '+description
             order.deliver_date = datetime.datetime.now()
             order.status = OrderStatusEnum.DELIVERED
             order.save()
             if order is not None:
+                NotificationRepo(user=self.user).add(title=f'سفارش شماره {order.id} تحویل گرفته شد .',link=order.get_absolute_url(),body=f'سفارش  شماره {order.id} تحویل گرفته شد.',icon='alarm',profile_id=order.supplier.profile.pk,color='success',priority=1)
+                
                 return order
 
     def list_for_supplier_temppp(self,supplier_id):
@@ -381,8 +392,7 @@ class OrderRepo:
         order.lines =lines 
         if order.customer.id == profile.id:
             order.lines =lines 
-            return order
-        if order.supplier.id == profile.id:
+        if order.supplier.profile.id == profile.id:
             if order.status == OrderStatusEnum.CONFIRMED:
                 order.accept_date = datetime.datetime.now()
                 order.status = OrderStatusEnum.ACCEPTED
@@ -391,7 +401,7 @@ class OrderRepo:
                 order.lines = lines
                 if not order.customer == profile:
                     order.customer=order.customer
-                return order           
+                          
         return order
 
 class CartRepo:
@@ -526,7 +536,7 @@ class CartRepo:
                             cart_line.delete()
                     order=OrderRepo(user=self.user).get(order_id=order.pk)
                     # MyPusherChannel(user=self.user).submit(order_id=order.id,total=order.total(),supplier_id=order.supplier.id)
-                    NotificationRepo(user=self.user).add(title='سفارش تایید شده',body=f'سفارش تایید شده به مبلغ {order.total()} تومان',link=order.get_absolute_url(),icon='alarm',profile_id=order.supplier.pk,color='danger',priority=1)
+                    NotificationRepo(user=self.user).add(title='سفارش تایید شده',body=f'سفارش تایید شده به مبلغ {order.total()} تومان',link=order.get_absolute_url(),icon='alarm',profile_id=order.supplier.profile.pk,color='danger',priority=1)
                     ProfileTransactionRepo(user=self.user).add(
                         from_profile_id=order.supplier.id,
                         to_profile_id=order.customer.id,title=f'فاکتور شماره {order.id}',amount=order.total(),cash_type='',description='description')
@@ -561,7 +571,7 @@ class CartRepo:
             customer=CustomerRepo(user=self.user).me
         else:
             customer=CustomerRepo(user=self.user).get(customer_id=customer_id)
-        if customer is None:         
+        if customer is None:    
             result={'result':'error','error_message':'حساب مشتری فعال نیست',}       
             return result
         try:
