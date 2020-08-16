@@ -148,15 +148,19 @@ class Employee(models.Model):
     def __str__(self):
         return self.profile.name()
     
-
+    def name(self):
+        if self.profile is not None:
+            return self.profile.name()
+        return "پروفایل خالی"
     class Meta:
         verbose_name = _("Employee")
         verbose_name_plural = _("Employees")
     
     def get_absolute_url(self):
-        return reverse('dashboard:profile',kwargs={'profile_id':self.pk})
+        return reverse('dashboard:profile',kwargs={'profile_id':self.profile.pk})
     def get_edit_url(self):
-        return ADMIN_URL+APP_NAME+'/employee/'+str(self.pk)+'/change/'
+        if self.profile is not None:
+            return self.profile.get_edit_url()
 
 class Accountant(Employee):
     
@@ -402,9 +406,11 @@ class Customer(models.Model):
         self.child_class=ProfileEnum.CUSTOMER
         super(Customer,self).save()
     def get_absolute_url(self):
-        return reverse('dashboard:profile',kwargs={'profile_id':self.pk})
+        return reverse('dashboard:profile',kwargs={'profile_id':self.profile.pk})
     def get_orders_url(self):
         return reverse('market:orders',kwargs={'customer_id':self.pk})
+    def get_cart_url(self):
+        return reverse('market:cart',kwargs={'customer_id':self.pk})
     def get_edit_url(self):
         return ADMIN_URL+APP_NAME+'/customer/'+str(self.pk)+'/change/'
 

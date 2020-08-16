@@ -617,7 +617,7 @@ class ShopRepo:
             shop.save()           
             return shop
 
-class SupplierRepo(ProfileRepo):
+class SupplierRepo:
     def get(self,supplier_id):
         try:
             return self.objects.get(pk=supplier_id)
@@ -629,7 +629,10 @@ class SupplierRepo(ProfileRepo):
         self.user=user
         self.profile=ProfileRepo(user=self.user).me
         if self.profile is not None:
-            self.me=self.get(supplier_id=self.profile.id)
+            try:
+                self.me=self.objects.get(profile_id=self.profile.id)
+            except:                
+                self.me=None
         else:
             self.me=None
     def list(self):
@@ -646,7 +649,7 @@ class SupplierRepo(ProfileRepo):
             return self.objects.filter(region=self.profile.region)
     
 
-class ShipperRepo(ProfileRepo):
+class ShipperRepo:
     def get(self,shipper_id):
         try:
             return self.objects.get(pk=shipper_id)
@@ -657,7 +660,10 @@ class ShipperRepo(ProfileRepo):
         self.objects=Shipper.objects
         self.profile=ProfileRepo(user=self.user).me
         if self.profile is not None:
-            self.me=self.get(shipper_id=self.profile.id)
+            try:
+                self.me=self.objects.get(profile_id=self.profile.id)
+            except:                
+                self.me=None
         else:
             self.me=None
     def list(self):

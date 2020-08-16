@@ -134,7 +134,8 @@ class Profile(models.Model):
         return reverse("dashboard:profile", kwargs={"profile_id": self.pk})
     def get_transactions_url(self):
         return reverse("dashboard:transactions", kwargs={"profile_id": self.pk})
-
+    def get_edit_url(self):
+        return f'{ADMIN_URL}{APP_NAME}/profile/{self.pk}/change/'
 class Region(models.Model):
     name=models.CharField(_("name"), max_length=50,choices=RegionEnum.choices,default=RegionEnum.KHAF)
     

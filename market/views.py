@@ -338,8 +338,8 @@ class ProductView(View):
         shops=ShopRepo(user=request.user).list(product_id=product_id)
         context['shops']=shops
         context['shops_s']='[]'
-        active_customer=context['active_customer']
-        active_supplier=context['active_supplier']
+        active_customer=CustomerRepo(user=user).me
+        active_supplier=SupplierRepo(user=user).me
         if active_customer is not None:            
             add_to_cart_form=AddToCartForm()
             if len(shops)>0:

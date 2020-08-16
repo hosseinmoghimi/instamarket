@@ -22,23 +22,32 @@
       </div>
 
       <div class="card-body">
-        <a class="btn btn-primary btn-block btn-link text-right" href="{{active_customer.get_orders_url}}"><i class="material-icons">settings</i>
+        <a class="btn btn-primary btn-block btn-link text-right" href="{{active_customer.get_cart_url}}"><i
+            class="material-icons">settings</i>
+
+          <span class="px-2">
+            سبد خرید شما</span></a>
+        <a class="btn btn-primary btn-block btn-link text-right" href="{{active_customer.get_orders_url}}"><i
+            class="material-icons">settings</i>
 
           <span class="px-2">
             سفارشات شما</span></a>
-        <a class="btn btn-primary btn-block btn-link text-right" href="{{active_customer.get_absolute_url}}"><i class="material-icons">settings</i>
+        <a class="btn btn-primary btn-block btn-link text-right" href="{{active_customer.get_absolute_url}}"><i
+            class="material-icons">settings</i>
 
           <span class="px-2">
             پروفایل شما</span></a>
-            <a class="btn btn-primary btn-block btn-link text-right" href="{{active_customer.get_transactions_url}}"><i class="material-icons">settings</i>
+        <a class="btn btn-primary btn-block btn-link text-right" href="{{active_customer.get_transactions_url}}"><i
+            class="material-icons">settings</i>
 
-              <span class="px-2">
-                تراکنش های شما</span></a>
+          <span class="px-2">
+            تراکنش های شما</span></a>
 
-                <a class="btn btn-primary btn-block btn-link text-right" href="{% url 'market:list' parent_id=0 %}"><i class="material-icons">settings</i>
+        <a class="btn btn-primary btn-block btn-link text-right" href="{% url 'market:list' parent_id=0 %}"><i
+            class="material-icons">settings</i>
 
-                  <span class="px-2">
-                    لیست محصولات</span></a>
+          <span class="px-2">
+            لیست محصولات</span></a>
       </div>
       <div class="card-footer">
         <div class="stats">
