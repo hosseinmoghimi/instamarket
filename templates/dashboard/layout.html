@@ -206,6 +206,10 @@
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="{% static 'dashboard/leo/vue.js' %}"></script>
         <script>
+            let to_price =function(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ' + CURRENCY
+        }
+
             var showNotification = function (from, align, icon, bgcolor, html) {
                 type = ['', 'info', 'danger', 'success', 'warning', 'rose', 'primary'];
 

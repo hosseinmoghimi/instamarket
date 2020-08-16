@@ -163,8 +163,20 @@
         <div class="card-body">
 
 
-          <input type="number" id="quantity_needed" placeholder="تعداد" min="0" max="100" name="quantity"
-            class="form-control">
+          <div class="row">
+            <div class="col-4">
+              <button class="btn btn-info" @click="quantity_needed--">-</button>
+            </div>
+            <div class="col-4">
+              <input type="number" id="quantity_needed" v-model="quantity_needed" placeholder="تعداد" min="0" max="100"
+                name="quantity" style="font-size:2em !important;" class="form-control text-center">
+            </div>
+            <div class="col-4">
+              <button class="btn btn-info" @click="quantity_needed++">+</button>
+            </div>
+          </div>
+
+
 
 
           <div>
@@ -282,15 +294,40 @@
 
           </form>
 
-          {% if add_to_cart_form %}
-          <input type="number" id="quantity_needed" placeholder="تعداد" min="0" max="100" name="quantity"
-            class="form-control">
-          {% endif %}
+
 
           <div>
-            <shop-component :shop="shop" v-for="shop in shops" v-cloak>
 
-            </shop-component>
+            <div v-for="shop in shops" class="media btn btn-warning">
+        
+              <div class="media-body ml-3">
+                <h5 class="mt-0">
+                  <small>
+                    {% verbatim %}
+
+                    هر
+                    {{shop.unit_name}}
+                    {{to_price(shop.price)}}
+
+                    {% endverbatim %}
+                  </small>
+                </h5>
+                <p class="mb-0 text-left">
+
+                  {% verbatim %}
+
+
+                  <small>
+                    {{shop.supplier.name}} 
+                  </small>
+
+                  {% endverbatim %}
+
+                </p>
+              </div>
+            </div>
+
+
 
           </div>
 
@@ -619,6 +656,7 @@
     let product_app_data = {
       is_liked: is_liked,
       shops: shops,
+      quantity_needed: 1,
       unit_names: unit_names,
       product_comments: product_comments,
       current_profile_id: current_profile_id,
@@ -637,11 +675,10 @@
         }
       },
       methods: {
-        separate: function (x) {
-          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ' + CURRENCY
-        },
+        
+        to_price:to_price,
         addToCart: function () {
-          if(customer_id>0)post_add_to_cart(this.this_shop.id)
+          if (customer_id > 0) post_add_to_cart(this.this_shop.id)
         },
       },
       props: ['shop'],
@@ -695,7 +732,7 @@
               product_app.is_liked = data.is_liked
             })
           },
-
+          to_price:to_price,
           addShop: function (unit_name) {
             post_add_shop(unit_name)
           },
