@@ -133,10 +133,11 @@ class ShopView(View):
         product_repo=ProductRepo(user=user)
         
         categories=category_repo.list(parent_id=parent_id)
-        for category in categories:
-            products=product_repo.top_products(category.id)
-            category.top_products=products[:5]
-            category.count=len(products)
+        # for category in categories:
+        #     # products=product_repo.top_products(category.id)
+        #     # category.top_products=products[:5]
+        #     products=
+        #     category.count=len(products)
         context['categories']=categories
         products=product_repo.list(category_id=parent_id)
         context['products']=products
@@ -708,7 +709,8 @@ class OrderView(View):
             context['do_pack_form']=do_pack_form
         
          # do ship form
-        if profile is not None and profile.child_class=='Shipper' and order.status==OrderStatusEnum.PACKED:
+        active_shipper=context['active_shipper']
+        if active_shipper is not None and order.status==OrderStatusEnum.PACKED:
             do_ship_form=DoShipForm()
             context['do_ship_form']=do_ship_form
         # do deiver form

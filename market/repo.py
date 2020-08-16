@@ -673,13 +673,13 @@ class ShopRegionRepo:
 
    
 class ProductRepo:
-    def top_products(self,category_id):
-        category_repo=CategoryRepo(user=self.user)
+    # def top_products(self,category_id):
+    #     category_repo=CategoryRepo(user=self.user)
         
-        products=list(self.list(category_id=category_id).values('id','name'))
-        for child in category_repo.list(parent_id=category_id):
-            products+=(self.top_products(child.id))
-        return products
+    #     products=list(self.list(category_id=category_id).values('id','name'))
+    #     for child in category_repo.list(parent_id=category_id):
+    #         products+=(self.top_products(child.id))
+    #     return products
     def __init__(self,user=None):
         self.objects=Product.objects
         self.user=user        

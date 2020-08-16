@@ -58,11 +58,19 @@ class Category(models.Model):
     prefix=models.CharField(_("پیش تعریف"), max_length=200,default='',null=True,blank=True)
     name=models.CharField(_("نام دسته"), max_length=50)
     description=models.CharField(_("توضیحات"), max_length=500,default='',null=True,blank=True)
-    image=models.ImageField(_("تصویر"), upload_to=IMAGE_FOLDER+'Category/', height_field=None, width_field=None, max_length=None,blank=True,null=True)
+    image_origin=models.ImageField(_("تصویر"), upload_to=IMAGE_FOLDER+'Category/', height_field=None, width_field=None, max_length=None,blank=True,null=True)
     rate=models.IntegerField(_("امتیاز"),default=0)
     priority=models.IntegerField(_("ترتیب"),default=1000)
+    def image(self):
+        return self.image_origin
     
-    
+    def top_products(self):
+        category_id=self.pk
+        products=Product.objects.filter(category_id=category_id)
+        for child in Category.objects.filter(parent_id=category_id):
+            products=products | child.top_products(child.id)
+        return products
+
     def save(self):
         if not self.image:
             super(Category,self).save()             
