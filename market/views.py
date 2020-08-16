@@ -703,13 +703,17 @@ class OrderView(View):
         order=OrderRepo(user=user).get(order_id=order_id)
         context=getContext(request=request)
         context['order']=order
+        active_customer=CustomerRepo(user=user).me
+        active_supplier=SupplierRepo(user=user).me
+        active_shipper=ShipperRepo(user=user).me
         # do pack form
-        if profile is not None and order.supplier.id==profile.id and order.status==OrderStatusEnum.ACCEPTED:
+        if active_supplier is not None and order.supplier==active_supplier and order.status==OrderStatusEnum.ACCEPTED:
             do_pack_form=DoPackForm()
             context['do_pack_form']=do_pack_form
         
          # do ship form
-        active_shipper=context['active_shipper']
+        
+        
         if active_shipper is not None and order.status==OrderStatusEnum.PACKED:
             do_ship_form=DoShipForm()
             context['do_ship_form']=do_ship_form
