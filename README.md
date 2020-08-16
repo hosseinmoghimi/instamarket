@@ -18,20 +18,6 @@ install requirement:
 ```python
 pip install -r requirements.txt
 ```
-migrate : 
-```python
-python manage.py migrate
-```
-
-create superuser : 
-```python
-python manage.py createsuperuser
-```
-
-collectstatic : 
-```python
-python manage.py collectstatic
-```
 
 generate and view secret key:
 ```python
@@ -75,3 +61,19 @@ echo "password = your_password">> instamarket/secret_my_sql_local.cnf
 echo "default-character-set = utf8" >> instamarket/secret_my_sql_local.cnf
 ```
 
+
+
+migrate : 
+```python
+python manage.py migrate
+```
+
+create superuser : 
+```python
+python manage.py createsuperuser
+```
+
+collectstatic : 
+```python
+python manage.py collectstatic
+```
