@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
-APP_NAME='leoshop'
+APP_NAME='market'
 class LeoshopConfig(AppConfig):
-    name = 'leoshop'
+    name = 'market'
