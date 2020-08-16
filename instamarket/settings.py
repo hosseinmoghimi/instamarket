@@ -204,12 +204,3 @@ elif ON_MAGGIE:
     STATIC_URL = local_settings.STATIC_URL
     STATICFILES_DIRS=local_settings.STATICFILES_DIRS
     TIME_ZONE = local_settings.TIME_ZONE
-
-
-
-
-
-
-
-
-

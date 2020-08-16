@@ -8,15 +8,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 DEBUG = False
 
 ALLOWED_HOSTS = ['khafonline.com','www.khafonline.com']
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'OPTIONS': {
-                'read_default_file': os.path.join(os.path.join(BASE_DIR, 'secret'),'server.cnf'),
 
-            },
-        }
-    }
 MYSQL=True
 
 

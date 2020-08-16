@@ -19,6 +19,15 @@ install requirement:
 pip install -r requirements.txt
 ```
 
+put your site root address,'/' , '/instamarket/' eg:
+```python
+echo "SITE_URL='/'" >> instamarket/server_settings.py
+```
+or
+
+```python
+echo "SITE_URL='/instamarket/'" >> instamarket/server_settings.py
+```
 generate and view secret key:
 ```python
 rm instamarket/secret_key.py
@@ -44,23 +53,12 @@ default-character-set = utf8
 for production:
 ```bash
 rm instamarket/secret_my_sql.cnf
-rm instamarket/secret_my_sql.cnf
 echo "[client]">> instamarket/secret_my_sql.cnf
 echo "database = your_database_name">> instamarket/secret_my_sql.cnf
 echo "host = your_host_name">> instamarket/secret_my_sql.cnf
 echo "user = your_user_name">> instamarket/secret_my_sql.cnf
 echo "password = your_password">> instamarket/secret_my_sql.cnf
 echo "default-character-set = utf8" >> instamarket/secret_my_sql.cnf
-```
-for local:
-```bash
-rm instamarket/secret_my_sql_local.cnf
-echo "[client]">> instamarket/secret_my_sql_local.cnf
-echo "database = your_database_name">> instamarket/secret_my_sql_local.cnf
-echo "host = your_host_name">> instamarket/secret_my_sql_local.cnf
-echo "user = your_user_name">> instamarket/secret_my_sql_local.cnf
-echo "password = your_password">> instamarket/secret_my_sql_local.cnf
-echo "default-character-set = utf8" >> instamarket/secret_my_sql_local.cnf
 ```
 
 
