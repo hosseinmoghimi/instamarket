@@ -613,9 +613,9 @@ class OrderView(View):
             if customer_id==0:
                 customer_id=profile.id
             customer=CustomerRepo(user=user).get(customer_id=customer_id) 
-            context['title_orders']='خرید شده توسط '+customer.name()
+            context['title_orders']='خرید شده توسط '+customer.profile.name()
             
-            context['name']=customer.name()
+            context['name']=customer.profile.name()
             orders=OrderRepo(user=user).list_for_customer(customer_id=customer_id)
         elif supplier_id is not None:
             if supplier_id==0:

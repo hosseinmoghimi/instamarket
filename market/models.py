@@ -458,7 +458,7 @@ class Order(models.Model):
         verbose_name_plural = _("Orders")
 
     def __str__(self):
-        return 'سفارش  # '+str(self.pk)+'  '+self.supplier.title+'  => '+self.customer.name()+'   @  '+PersianCalendar().from_gregorian(self.order_date)+'      $ '+str(self.total())
+        return 'سفارش  # '+str(self.pk)+'  '+self.supplier.title+'  => '+self.customer.profile.name()+'   @  '+PersianCalendar().from_gregorian(self.order_date)+'      $ '+str(self.total())
     def total(self):
         if self.no_ship:
             total=self.lines_total()
