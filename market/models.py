@@ -64,12 +64,18 @@ class Category(models.Model):
     def image(self):
         return self.image_origin
     
-    def top_products(self):
-        category_id=self.pk
-        products=Product.objects.filter(category_id=category_id)
-        for child in Category.objects.filter(parent_id=category_id):
-            products=products | child.top_products(child.id)
-        return products[:5]
+    # def top_products(self):
+    #     category_id=self.pk
+    #     # products=Product.objects.filter(category_id=category_id)
+    #     # for child in Category.objects.filter(parent_id=category_id):
+    #     #     products=products | child.top_products(child.id)
+    #     # return products[:5]
+    #     category_repo=CategoryRepo(user=self.user)
+        
+    #     products=list(self.list(category_id=category_id).values('id','name'))
+    #     for child in category_repo.list(parent_id=category_id):
+    #         products+=(self.top_products(child.id))
+    #     return products
 
     def save(self):
         if not self.image_origin:

@@ -174,16 +174,11 @@
                         <h4> <i class="material-icons">{{category.icon}}</i>&nbsp;&nbsp;&nbsp;
                           {{category.name}} 
                           
-                          <!-- <small><small class="text-info">
-                              ({{category.top_products | length}})</small></small> -->
-                            
+                     
                             </h4>
 
                       </a></div>
-                    <div class="col-lg"> {% for product in category.top_products %}
-                      <small><a href="{{product.get_absolute_url}}"> {{product.name}}</a>&nbsp;,&nbsp;
-                      </small> {% endfor %}...
-                    </div>
+                  
                   </div>
 
 
