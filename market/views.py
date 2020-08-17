@@ -133,6 +133,8 @@ class ShopView(View):
         product_repo=ProductRepo(user=user)
         
         categories=category_repo.list(parent_id=parent_id)
+        # categories.top_products_length=len(categories.top_products())
+        # categories.top_products()=categories.top_products()[:5]
         # for category in categories:
         #     # products=product_repo.top_products(category.id)
         #     # category.top_products=products[:5]

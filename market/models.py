@@ -69,14 +69,14 @@ class Category(models.Model):
         products=Product.objects.filter(category_id=category_id)
         for child in Category.objects.filter(parent_id=category_id):
             products=products | child.top_products(child.id)
-        return products
+        return products[:5]
 
     def save(self):
-        if not self.image:
+        if not self.image_origin:
             super(Category,self).save()             
-        elif str(self.image)==str(Category.objects.get(pk=self.id).image):
+        elif str(self.image_origin)==str(Category.objects.get(pk=self.id).image_origin):
             super(Category,self).save()
-        elif self.image and FORCE_RESIZE_IMAGE:
+        elif self.image_origin and FORCE_RESIZE_IMAGE:
             # try:
             #     unused_image=Category.objects.get(pk=self.id).image
             #     if unused_image is not None:
@@ -88,7 +88,7 @@ class Category(models.Model):
             #     pass
 
             #Opening the uploaded image
-            image = Image.open(self.image)
+            image = Image.open(self.image_origin)
        
             output = BytesIO()
            
@@ -103,7 +103,7 @@ class Category(models.Model):
            
 
             #change the imagefield value to be the newley modifed image value
-            self.image = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.image.name.split('.')[0], IMAGE_FOLDER+'Category/image/jpeg', sys.getsizeof(output), None)
+            self.image_origin = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.image.name.split('.')[0], IMAGE_FOLDER+'Category/image/jpeg', sys.getsizeof(output), None)
             
         super(Category,self).save()
     class Meta:
