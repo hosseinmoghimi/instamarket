@@ -149,8 +149,8 @@ class ShopView(View):
         context['parent']=parent
         if parent is not None : context['breadcrumb']=parent.get_breadcrumb()
 
-        can_add_category=(len(products)==0) and (SupplierRepo(user=user).me is not None)
-        can_add_product=(len(categories)==0) and (SupplierRepo(user=user).me is not None )
+        can_add_category=(len(products)==0) and (user.has_perm('market.add_category'))
+        can_add_product=(len(categories)==0) and (user.has_perm('market.add_product'))
         can_edit_category=SupplierRepo(user=user).me is not None
         can_edit_product=SupplierRepo(user=user).me is not None 
 
