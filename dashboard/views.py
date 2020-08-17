@@ -275,7 +275,7 @@ class ManagerView(View):
     
     def manager(self,request):
         user=request.user
-        if user is not None and user.is_authenticated:
+        if user is None or not user.is_authenticated:
             return BasicView().home(request)
         context=getContext(request=request)
         priority_range=range(6)
@@ -287,4 +287,5 @@ class ManagerView(View):
         if user.has_perm('dashboard.add_notification'):
             add_notification_form=AddNotificationForm()
             context['add_notification_form']=add_notification_form
-        return render(request,TEMPLATE_ROOT+'manager.html',context)
+            return render(request,TEMPLATE_ROOT+'manager.html',context)
+        return BasicView().home(request)
