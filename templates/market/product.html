@@ -299,7 +299,7 @@
           <div>
 
             <div v-for="shop in shops" class="media btn btn-warning">
-        
+
               <div class="media-body ml-3">
                 <h5 class="mt-0">
                   <small>
@@ -318,7 +318,7 @@
 
 
                   <small>
-                    {{shop.supplier.name}} 
+                    {{shop.supplier.name}}
                   </small>
 
                   {% endverbatim %}
@@ -382,6 +382,8 @@
 
     </div>
     {% endif %}
+    {% if product.short_description %}
+
     <div class="col-lg-4 col-md-6">
       <div class="card card-stats">
         <div class="card-header card-header-info card-header-icon">
@@ -400,11 +402,10 @@
         </div>
         <div class="card-body">
 
-          {% if product.short_description %}
+
 
           <p> {{product.short_description }}</p>
 
-          {% endif %}
         </div>
         <div class="card-footer">
           <div class="stats">
@@ -416,10 +417,16 @@
 
 
     </div>
+    {% endif %}
   </div>
+
+  {% if product_relateds %}
   <div>
     <p class="h3 text-center">محصولات مرتبط</p>
   </div>
+
+
+
   <div class="owl-carousel owl-theme">
     {% for product_related in product_relateds %}
     <div class="item pt-5 px-3">
@@ -482,7 +489,7 @@
     {% endfor %}
 
   </div>
-
+  {% endif %}
   <div class="row">
 
 
@@ -675,8 +682,8 @@
         }
       },
       methods: {
-        
-        to_price:to_price,
+
+        to_price: to_price,
         addToCart: function () {
           if (customer_id > 0) post_add_to_cart(this.this_shop.id)
         },
@@ -732,7 +739,7 @@
               product_app.is_liked = data.is_liked
             })
           },
-          to_price:to_price,
+          to_price: to_price,
           addShop: function (unit_name) {
             post_add_shop(unit_name)
           },
