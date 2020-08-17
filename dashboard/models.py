@@ -191,8 +191,8 @@ class Notification(models.Model):
         return reverse("dashboard:notification", kwargs={"notification_id": self.pk})
 
 class MetaData(models.Model):
-    key=models.CharField(_("key"), max_length=50)
-    value=models.CharField(_("value"), max_length=50)
+    key=models.CharField(_("key name"), max_length=50,default='name')
+    value=models.CharField(_("key value"), max_length=50)
     content=models.CharField(_("content"), max_length=2000)
     class Meta:
         verbose_name = _("MetaData")
