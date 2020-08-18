@@ -340,6 +340,7 @@ class GalleryPhoto(models.Model):
 class SocialLink(models.Model):
     name=models.CharField(_("نام"), max_length=50)
     icon=models.CharField(_("آیکون"),choices=IconsEnum.choices,default=IconsEnum.settings, max_length=50)
+    color=models.CharField(_("رنگ"),choices=ColorEnum.choices,default=ColorEnum.PRIMARY, max_length=50)
     link=models.CharField(_("لینک"), max_length=50)
     priority=models.IntegerField(_("ترتیب"))
 
@@ -443,6 +444,9 @@ class Document(models.Model):
     file=models.FileField(_("فایل ضمیمه"), upload_to=IMAGE_FOLDER+'Document', max_length=100)
     date_added=models.DateTimeField(_("date_added"), auto_now=False, auto_now_add=True)
     row_number=models.IntegerField(_("row_number"),default=10000)
+    icon=models.CharField(_("آیکون"),choices=IconsEnum.choices,default=IconsEnum.get_app, max_length=50)
+    color=models.CharField(_("رنگ"),choices=ColorEnum.choices,default=ColorEnum.PRIMARY, max_length=50)
+    
     class Meta:
         verbose_name = _("Document")
         verbose_name_plural = _("Documents")

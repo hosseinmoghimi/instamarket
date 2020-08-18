@@ -9,21 +9,30 @@
 <div class="row">
     {% for resume_category in resume_categories %}
     <div class="col-lg-12 col-md-12">
-        <div class="card">
-         
-            <div class="card-body" style="direction: rtl;text-align: right;">
-                <h3 class="card-title mb-4 mt-4">{{resume_category.title}}</h3>
+        
+        <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">content_copy</i></div>
+              <p class="card-category">&nbsp;</p>
+              <h3 class="card-title">{{resume_category.title}}
+      
+              </h3>
+            </div>
+      
+            <div class="card-body mt-5" >
+               
 
 
                 {% for resume in resume_category.resumes.all %}
-                <div class="ml-4">
+                <div class="ml-5">
                     <p class="text-right" style="direction: rtl !important;">
                         
                         {{ forloop.counter }}
                         -
                         {{resume.title}}
                         
-                        <span class="text-secondary mx-4">
+                        <span class="text-secondary mx-5">
                             <small>{{resume.date | to_persian_date}}</small></span></p>
 
 
@@ -55,7 +64,18 @@
 
 
             </div>
-        </div>
+
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> ۴ دقیقه پیش
+              </div>
+            </div>
+          </div>
+
+
+
+        
+     
     </div>
     {% endfor %}
 
