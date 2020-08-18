@@ -361,7 +361,7 @@ class OurTeam(models.Model):
     priority=models.IntegerField(_("ترتیب"))
     image_origin=models.ImageField(_("تصویر"), upload_to=IMAGE_FOLDER+'OurTeam/', height_field=None, width_field=None, max_length=None)
     social_links=models.ManyToManyField("SocialLink", verbose_name=_("social_links"),blank=True)
-    resume_categories=models.ManyToManyField("ResumeCategory",blank=True, verbose_name=_("ResumeCategories"))
+    resume_categories=models.ManyToManyField("ResumeCategory",verbose_name=_("ResumeCategories"),blank=True)
     def __str__(self):
         return self.name
     def get_resume_url(self):
