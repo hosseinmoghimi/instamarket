@@ -137,6 +137,7 @@ class Profile(models.Model):
         return reverse("dashboard:transactions", kwargs={"profile_id": self.pk})
     def get_edit_url(self):
         return f'{ADMIN_URL}{APP_NAME}/profile/{self.pk}/change/'
+
 class Region(models.Model):
     name=models.CharField(_("name"), max_length=50,choices=RegionEnum.choices,default=RegionEnum.KHAF)
     
@@ -362,7 +363,7 @@ class OurTeam(models.Model):
         return self.name
     def image(self):
         if self.image_origin:
-            return SITE_URL+'media/'+str(self.image_origin)
+            return MEDIA_URL+str(self.image_origin)
         else:
             return STATIC_URL+'dashboard/img/default_avatar.png'
     
@@ -431,13 +432,6 @@ class ProfileTransaction(models.Model):
 
     def get_absolute_url(self):
         return reverse("Transaction_detail", kwargs={"pk": self.pk})
-
-
-
-
-
-
-
 
 class Document(models.Model):
     profile=models.ForeignKey("Profile", verbose_name=_("پروفایل"), on_delete=models.CASCADE)

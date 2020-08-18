@@ -15,6 +15,7 @@ urlpatterns = [
     path('logout/',views.AuthView().logout,name='logout'),
     path('about/',views.BasicView().about,name='about'),
     path('terms/',views.BasicView().terms,name='terms'),
+    path('our_team/',views.BasicView().our_team,name='our_team'),
     path('change_profile_image/',views.ProfileView().change_profile_image,name='change_profile_image'),
     path('edit_profile/',views.ProfileView().edit_profile,name='edit_profile'),
     path('change_profile/',views.ProfileView().change_profile,name='change_profile'),
