@@ -3,7 +3,7 @@ from .apps import APP_NAME
 from .enums import IconsEnum, ParametersEnum
 from .forms import *
 from .constants import CURRENCY
-from .repo import OurTeamRepo,HomeSliderRepo,DocumentRepo, ParameterRepo, ProfileTransactionRepo, LinkRepo, ProfileTransactionRepo, ProfileRepo, MetaDataRepo, OurTeamRepo, RegionRepo, NotificationRepo
+from .repo import ResumeCategoryRepo,OurTeamRepo,HomeSliderRepo,DocumentRepo, ParameterRepo, ProfileTransactionRepo, LinkRepo, ProfileTransactionRepo, ProfileRepo, MetaDataRepo, OurTeamRepo, RegionRepo, NotificationRepo
 from .serializers import NotificationSerializer
 from django.shortcuts import render,redirect,reverse
 from django.views import View
@@ -104,6 +104,10 @@ class BasicView(View):
         context=getContext(request=request)
         context['our_teams']=OurTeamRepo(user=request.user).list()
         return render(request,TEMPLATE_ROOT+'our_team.html',context)
+    def resume(self,request,our_team_id):        
+        context=getContext(request=request)
+        context['resume_categories']=ResumeCategoryRepo(user=request.user).list(our_team_id=our_team_id)
+        return render(request,TEMPLATE_ROOT+'resume.html',context)
     def search(self,request):
         if request.method=='POST':
             search_form=SearchForm(request.POST)

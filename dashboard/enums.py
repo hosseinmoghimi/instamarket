@@ -3,6 +3,15 @@ from django.utils.translation import gettext as _
 from enum import Enum
 
 
+class ResumeCategoryEnum(TextChoices):
+    EXPERIENCE = 'تجربه ها', _('تجربه ها')
+    EDUCATION = 'آموزش ها', _('آموزش ها')
+    SKILLS = 'مهارت ها', _('مهارت ها')
+    INTERESTS = 'علاقه ها', _('علاقه ها')
+    CERTIFICATIONS = 'گواهینامه ها', _('گواهینامه ها')
+    AWARDS = 'جایزه ها', _('جایزه ها')
+    WORKS_DONE = 'کار های انجام شده', _('کار های انجام شده')
+
 
 
 class ColorEnum(TextChoices):
