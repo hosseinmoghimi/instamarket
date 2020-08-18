@@ -3,38 +3,6 @@
 {% load to_price %}
 {% block contents %}
 
-{% if our_teams %}
-  <div class="row">
-    {% for our_team in our_teams %}
-    <div class="col-lg-4 col-md-4">
-    <div class="card card-profile" id="app_profile">
-      <div class="card-avatar">
-        <a href="javascript:;">
-          <img class="img" src="{{our_team.image}}" />
-
-
-        </a>
-      </div>
-      <div class="card-body">
-        <h6 class="card-category text-gray text-center">{{our_team.job}}</h6>
-        <h4 class="card-title text-center">{{our_team.name}}</h4>
-       <p class=" text-center">{{our_team_title}}</p>
-        {% if our_team.description %}
-
-        <p class="card-description  text-center">
-          {{our_team.description}}
-        </p>
-      
-        {% endif %} 
-    
-
-      
-
-      </div>
-    </div></div>
-    {% endfor %}
-  </div>
-{% endif %}
 
 
 <div class="row">
