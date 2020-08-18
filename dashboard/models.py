@@ -1,7 +1,7 @@
 from django.http import HttpResponse,Http404
 import uuid 
 from .apps import APP_NAME
-from .enums import IconsEnum, TransactionDirectionEnum, ColorEnum, ParametersEnum, PicEnum, ProfileStatusEnum, RegionEnum, TransactionTypeEnum
+from .enums import ResumeCategoryEnum,IconsEnum, TransactionDirectionEnum, ColorEnum, ParametersEnum, PicEnum, ProfileStatusEnum, RegionEnum, TransactionTypeEnum
 from .constants import FORCE_RESIZE_IMAGE,SHIPPER_IMAGE_WIDTH,SHIPPER_IMAGE_HEIGHT,SUPPLIER_IMAGE_WIDTH,SUPPLIER_IMAGE_HEIGHT,PRODUCT_IMAGE_WIDTH,PRODUCT_IMAGE_HEIGHT,PRODUCT_IMAGE_HEIGHT,PRODUCT_THUMBNAIL_WIDTH,PRODUCT_THUMBNAIL_HEIGHT,CATEGORY_IMAGE_WIDTH,CATEGORY_IMAGE_HEIGHT,PROFILE_IMAGE_WIDTH,PROFILE_IMAGE_HEIGHT
 from .persian import PersianCalendar
 from .settings import *
@@ -359,8 +359,12 @@ class OurTeam(models.Model):
     description=models.CharField(_("توضیحات"), max_length=500)
     priority=models.IntegerField(_("ترتیب"))
     image_origin=models.ImageField(_("تصویر"), upload_to=IMAGE_FOLDER+'OurTeam/', height_field=None, width_field=None, max_length=None)
+    social_links=models.ManyToManyField("SocialLink", verbose_name=_("social_links"),blank=True)
+    resume_categories=models.ManyToManyField("ResumeCategory", verbose_name=_("ResumeCategories"))
     def __str__(self):
         return self.name
+    def get_resume_url(self):
+        return reverse('dashboard:resume',kwargs={'our_team_id':self.pk})
     def image(self):
         if self.image_origin:
             return MEDIA_URL+str(self.image_origin)
@@ -464,6 +468,42 @@ class Document(models.Model):
     def get_absolute_url(self):
         return reverse("school:document", kwargs={"document_id": self.pk})
 
+class ResumeCategory(models.Model):
+    our_team=models.ForeignKey("OurTeam", verbose_name=_("our_team"), on_delete=models.CASCADE)
+    resumes=models.ManyToManyField("Resume", verbose_name=_("resume"))
+    title=models.CharField(_("title"),choices=ResumeCategoryEnum.choices,default=ResumeCategoryEnum.EDUCATION, max_length=50)
+    priority=models.IntegerField(_("priority"))
+
+    class Meta:
+        verbose_name = _("ResumeCategory")
+        verbose_name_plural = _("ResumeCategorys")
+
+    def __str__(self):
+        return f'{self.our_team.name} -> {self.title}'
+
+    def get_absolute_url(self):
+        return reverse("ResumeCategory_detail", kwargs={"pk": self.pk})
+
+
+class Resume(models.Model):
+    priority=models.IntegerField(_("priority"))
+    title=models.CharField(_("title"), max_length=50)
+    subtitle=models.CharField(_("subtitle"), max_length=50)
+    description=models.CharField(_("description"), max_length=500)
+    date=models.DateTimeField(_("date"), auto_now=False, auto_now_add=False)
+    links=models.ManyToManyField("Link", verbose_name=_("links"),blank=True)
+    documents=models.ManyToManyField("Document", verbose_name=_("documents"),blank=True)
+    
+
+    class Meta:
+        verbose_name = _("Resume")
+        verbose_name_plural = _("Resumes")
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse("Resume_detail", kwargs={"pk": self.pk})
 
 
 

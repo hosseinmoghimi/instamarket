@@ -1,5 +1,5 @@
 from django.contrib.auth import login, logout, authenticate
-from .models import Document,Profile,ProfileTransaction,HomeSlider, Region, Link, MetaData, Notification, SocialLink, OurTeam, OurService, GalleryPhoto, Testimonial, Blog, Parameter, FAQ, MainPic
+from .models import ResumeCategory,Document,Profile,ProfileTransaction,HomeSlider, Region, Link, MetaData, Notification, SocialLink, OurTeam, OurService, GalleryPhoto, Testimonial, Blog, Parameter, FAQ, MainPic
 from .enums import ParametersEnum, PicEnum, ProfileStatusEnum
 from django.contrib.auth.models import User
 from .apps import APP_NAME
@@ -168,6 +168,12 @@ class HomeSliderRepo:
         self.objects=HomeSlider.objects
     def list(self):
         return self.objects.order_by('priority')
+class ResumeCategoryRepo:
+    def __init__(self,user=None):
+        self.user=user
+        self.objects=ResumeCategory.objects
+    def list(self,our_team_id):
+        return self.objects.filter(our_team_id=our_team_id)
 
 class GalleryPhotoRepo:    
     def __init__(self,user=None):
