@@ -50,7 +50,8 @@ class HomeSlider(models.Model):
     class Meta:
         verbose_name = _("HomeSlider")
         verbose_name_plural = _("HomeSliders")
-
+    def image(self):
+        return MEDIA_URL+str(self.image_origin)
     def __str__(self):
         return self.title
 

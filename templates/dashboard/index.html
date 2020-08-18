@@ -8,6 +8,49 @@
 
 
 <div class="row">
+
+
+  {% if home_sliders %}
+  <div class="col-12">
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <!-- <ol class="carousel-indicators">
+        {% for home_slider in home_sliders %}
+        <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}"></li>
+        {% endfor %}
+      </ol> -->
+      <div class="carousel-inner">
+        {% for home_slider in home_sliders %}
+        <div class="carousel-item card">
+          <img src="{{ home_slider.image }}" class="w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h1 class="display-4">{{ home_slider.title }}</h1>
+            <p class="lead">{{ home_slider.body }} </p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" href="{{ home_slider.action_link }}"
+                role="button">{{ home_slider.action_text }}</a>
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+
+  </div>
+
+  {% endif %}
+
+
+
+
   <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="card card-stats">
       <div class="card-header card-header-info card-header-icon">
@@ -16,20 +59,20 @@
         </div>
         <p class="card-category">لیست</p>
         <h3 class="card-title">لینک ها
-        
+
         </h3>
       </div>
       <div class="card-body">
         <p class="mt-3">
-{% for link in links %}
+          {% for link in links %}
 
 
-<a class="d-block mb-2 text-{{link.color}}" href="{{link.url}}">
-  <i class="material-icons">{{link.icon}}</i>
-  {{link.title}}</a>
-{% endfor %}</p>
+          <a class="d-block mb-2 text-{{link.color}}" href="{{link.url}}">
+            <i class="material-icons">{{link.icon}}</i>
+            {{link.title}}</a>
+          {% endfor %}</p>
       </div>
-        <div class="card-footer">
+      <div class="card-footer">
         <div class="stats">
           <i class="material-icons text-danger">link</i>
           <a href="{{ADMIN_URL}}dashboard/link/add/">اضافه کردن لینک</a>
@@ -389,11 +432,11 @@
                 </tr>
               </tbody>
             </table>
-          </div>  
+          </div>
           <div class="tab-pane" id="todoitems">
             <table class="table">
               <tbody>
-             {% for to_do_item in to_do_items %}
+                {% for to_do_item in to_do_items %}
                 <tr>
                   <td>
                     <div class="form-check">
@@ -403,8 +446,8 @@
                         {% else %}
                         <input class="form-check-input" type="checkbox" unchecked value="">
                         {% endif %}
-                        
-                      
+
+
                         <span class="form-check-sign">
                           <span class="check"></span>
                         </span>
@@ -423,10 +466,10 @@
                     </button>
                   </td>
                 </tr>
-           
-             {% endfor %}
-               
-                
+
+                {% endfor %}
+
+
               </tbody>
             </table>
           </div>
@@ -540,105 +583,105 @@
 {% endblock %}
 {% block scripts %}
 <script>
-  let initDashboardPageCharts= function() {
+  let initDashboardPageCharts = function () {
 
-if ($('#dailySalesChart').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
-  /* ----------==========     Daily Sales Chart initialization    ==========---------- */
+    if ($('#dailySalesChart').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
+      /* ----------==========     Daily Sales Chart initialization    ==========---------- */
 
-  dataDailySalesChart = {
-    labels: ['شنبه', '1','2', '3', '4', '5', 'جمعه'],
-    series: [
-      [12, 60, 87, 17, 23, 18, 38]
-    ]
-  };
+      dataDailySalesChart = {
+        labels: ['شنبه', '1', '2', '3', '4', '5', 'جمعه'],
+        series: [
+          [12, 60, 87, 17, 23, 18, 38]
+        ]
+      };
 
-  optionsDailySalesChart = {
-    lineSmooth: Chartist.Interpolation.cardinal({
-      tension: 1
-    }),
-    low: 0,
-    high: 100, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-    chartPadding: {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    },
-  }
+      optionsDailySalesChart = {
+        lineSmooth: Chartist.Interpolation.cardinal({
+          tension: 1
+        }),
+        low: 0,
+        high: 100, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        chartPadding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+        },
+      }
 
-  var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
-  md.startAnimationForLineChart(dailySalesChart);
-
-
-
-  /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
-
-  dataCompletedTasksChart = {
-    labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-    series: [
-      [230, 750, 100, 300, 280, 240, 200, 190]
-    ]
-  };
-
-  optionsCompletedTasksChart = {
-    lineSmooth: Chartist.Interpolation.cardinal({
-      tension: 0
-    }),
-    low: 0,
-    high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-    chartPadding: {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    }
-  }
-
-  var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-  // start animation for the Completed Tasks Chart - Line Chart
-  md.startAnimationForLineChart(completedTasksChart);
+      md.startAnimationForLineChart(dailySalesChart);
 
 
-  /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
-  var dataWebsiteViewsChart = {
-    labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-    series: [
-      [542, 443, 320, 780, 553, 453, 326, 434, 568, 400, 300, 200]
+      /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
 
-    ]
-  };
-  var optionsWebsiteViewsChart = {
-    axisX: {
-      showGrid: true,
-    },
-    low: 0,
-    high: 1000,
-    chartPadding: {
-      top: 0,
-      right: 5,
-      bottom: 0,
-      left: 0
-    }
-  };
-  var responsiveOptions = [
-    ['screen and (max-width: 640px)', {
-      seriesBarDistance: 5,
-      axisX: {
-        labelInterpolationFnc: function(value) {
-          return value[0];
+      dataCompletedTasksChart = {
+        labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
+        series: [
+          [230, 750, 100, 300, 280, 240, 200, 190]
+        ]
+      };
+
+      optionsCompletedTasksChart = {
+        lineSmooth: Chartist.Interpolation.cardinal({
+          tension: 0
+        }),
+        low: 0,
+        high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        chartPadding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
         }
       }
-    }]
-  ];
-  var websiteViewsChart = Chartist.Bar('#websiteViewsChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
 
-  //start animation for the Emails Subscription Chart
-  md.startAnimationForBarChart(websiteViewsChart);
-}
-}
+      var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+
+      // start animation for the Completed Tasks Chart - Line Chart
+      md.startAnimationForLineChart(completedTasksChart);
+
+
+      /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
+
+      var dataWebsiteViewsChart = {
+        labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+        series: [
+          [542, 443, 320, 780, 553, 453, 326, 434, 568, 400, 300, 200]
+
+        ]
+      };
+      var optionsWebsiteViewsChart = {
+        axisX: {
+          showGrid: true,
+        },
+        low: 0,
+        high: 1000,
+        chartPadding: {
+          top: 0,
+          right: 5,
+          bottom: 0,
+          left: 0
+        }
+      };
+      var responsiveOptions = [
+        ['screen and (max-width: 640px)', {
+          seriesBarDistance: 5,
+          axisX: {
+            labelInterpolationFnc: function (value) {
+              return value[0];
+            }
+          }
+        }]
+      ];
+      var websiteViewsChart = Chartist.Bar('#websiteViewsChart', dataWebsiteViewsChart, optionsWebsiteViewsChart, responsiveOptions);
+
+      //start animation for the Emails Subscription Chart
+      md.startAnimationForBarChart(websiteViewsChart);
+    }
+  }
 
   $(document).ready(function () {
     // Javascript method's body can be found in assets/js/demos.js
@@ -649,7 +692,9 @@ if ($('#dailySalesChart').length != 0 || $('#completedTasksChart').length != 0 |
 <script>
   $("#dashboard-link").addClass("active");
 
+  $(".carousel-item:first").addClass("active");
 
+  $("#carouselExampleIndicators:first").addClass("active");
 
 
 
