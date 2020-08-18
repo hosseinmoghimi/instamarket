@@ -28,13 +28,22 @@
 
 
 
-                    {% for link in resume.links.all %}
-                    <div class="ml-4">
-                        <a class="d-block text-{{link.color}} mb-2" href="{{link.url}}">
-                            <i class="material-icons">{{link.icon}}</i>
-                            {{link.title}}</a>
-                    </div>
-                    {% endfor %}
+                            {% for link in resume.links.all %}
+                            <div class="ml-4">
+                                <a class="d-block text-{{link.color}} mb-2" href="{{link.url}}">
+                                    <i class="material-icons">{{link.icon}}</i>
+                                    {{link.title}}</a>
+                            </div>
+                            {% endfor %}
+
+                            {% for document in resume.documents.all %}
+                            <div class="ml-4">
+                                <a class="d-block text-{{document.color}} mb-2" href="{{document.get_download_url}}">
+                                    <i class="material-icons">{{document.icon}}</i>
+                                    {{document.title}}</a>
+                            </div>
+                            {% endfor %}
+
 
 
                 </div>

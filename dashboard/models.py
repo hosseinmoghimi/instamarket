@@ -466,7 +466,7 @@ class Document(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("school:document", kwargs={"document_id": self.pk})
+        return reverse("dashboard:document", kwargs={"document_id": self.pk})
 
 class ResumeCategory(models.Model):
     our_team=models.ForeignKey("OurTeam", verbose_name=_("our_team"), on_delete=models.CASCADE)
