@@ -159,8 +159,10 @@ class SocialLinkRepo:
         return SocialLink.objects.order_by('priority')
 
 class OurServiceRepo:
+    def __init__(self,user=None):
+        self.objects=OurService.objects.order_by('priority')
     def list(self):
-        return OurService.objects.order_by('priority')
+        return self.objects
 
 class HomeSliderRepo:
     def __init__(self,user=None):

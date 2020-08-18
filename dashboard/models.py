@@ -305,9 +305,13 @@ class Testimonial(models.Model):
 
 class OurService(models.Model):
     title=models.CharField(_("عنوان"), max_length=50)
-    icon=models.CharField(_("آیکون"), max_length=50,choices=IconsEnum.choices,default=IconsEnum.settings)
+    image_origin=models.ImageField(_("تصویر"), upload_to=IMAGE_FOLDER+'OurService/', height_field=None,null=True,blank=True, width_field=None, max_length=None)
     description=models.CharField(_("توضیحات"), max_length=500)
     priority=models.IntegerField(_("ترتیب"))
+    links=models.ManyToManyField("Link", verbose_name=_("links"))
+    icon=models.CharField(_("آیکون"),choices=IconsEnum.choices,default=IconsEnum.settings, max_length=50)
+    color=models.CharField(_("رنگ"),choices=ColorEnum.choices,default=ColorEnum.PRIMARY, max_length=50)
+    
     class Meta:
         verbose_name = _("OurService")
         verbose_name_plural = _("OurServices")
@@ -315,7 +319,11 @@ class OurService(models.Model):
     def __str__(self):
         return self.title
 
-
+    def image(self):
+        if self.image_origin is None:
+            return STATIC_URL+'dashboard/img/default_avatar.png'
+        return MEDIA_URL+str(self.image_origin)
+    
     def __unicode__(self):
         return self.title
     # def get_absolute_url(self):
@@ -443,7 +451,7 @@ class Document(models.Model):
     title=models.CharField(_("title"), max_length=50)
     file=models.FileField(_("فایل ضمیمه"), upload_to=IMAGE_FOLDER+'Document', max_length=100)
     date_added=models.DateTimeField(_("date_added"), auto_now=False, auto_now_add=True)
-    row_number=models.IntegerField(_("row_number"),default=10000)
+    priority=models.IntegerField(_("priority"),default=10000)
     icon=models.CharField(_("آیکون"),choices=IconsEnum.choices,default=IconsEnum.get_app, max_length=50)
     color=models.CharField(_("رنگ"),choices=ColorEnum.choices,default=ColorEnum.PRIMARY, max_length=50)
     

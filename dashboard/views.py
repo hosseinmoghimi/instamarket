@@ -3,7 +3,7 @@ from .apps import APP_NAME
 from .enums import IconsEnum, ParametersEnum
 from .forms import *
 from .constants import CURRENCY
-from .repo import ResumeCategoryRepo,OurTeamRepo,HomeSliderRepo,DocumentRepo, ParameterRepo, ProfileTransactionRepo, LinkRepo, ProfileTransactionRepo, ProfileRepo, MetaDataRepo, OurTeamRepo, RegionRepo, NotificationRepo
+from .repo import OurServiceRepo,ResumeCategoryRepo,OurTeamRepo,HomeSliderRepo,DocumentRepo, ParameterRepo, ProfileTransactionRepo, LinkRepo, ProfileTransactionRepo, ProfileRepo, MetaDataRepo, OurTeamRepo, RegionRepo, NotificationRepo
 from .serializers import NotificationSerializer
 from django.shortcuts import render,redirect,reverse
 from django.views import View
@@ -120,6 +120,7 @@ class BasicView(View):
         context=getContext(request=request)
         context['links']=LinkRepo(user=user).list()
         context['home_sliders']=HomeSliderRepo(user=user).list()
+        context['our_services']=OurServiceRepo(user=user).list()
         return render(request,TEMPLATE_ROOT+'index.html',context)
 
 class AuthView(View):
