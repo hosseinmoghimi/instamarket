@@ -1,0 +1,53 @@
+{% extends "dashboard/layout.html" %}
+{% load static %}
+{% load to_price %}
+{% block contents %}
+
+
+
+
+
+<div class="row">
+    {% if entry %}
+    <div class="col-lg-6">
+        <div class="card">
+
+            <div class="card-body">
+                <p>
+                    <span>{{entry.first_name}}</span><br>
+                    <span>{{entry.last_name}}</span><br>
+                </p>
+
+                {% for detail in entry.details.all %}
+                <span>{{detail.entry_name}} : {{detail.entry_value}}</span><br>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+    {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+{% endblock %}
+{% block scripts %}
+<script>
+    $("#phonebook-link").addClass('active')
+</script>
+{% endblock %}
+{% block styles %}
+
+{% endblock %}

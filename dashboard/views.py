@@ -113,7 +113,7 @@ class BasicView(View):
             search_form=SearchForm(request.POST)
             if search_form.is_valid():
                 search_for=search_form.cleaned_data['search_for']                     
-                return redirect('/')
+                return redirect(settings.SITE_URL)
 
     def home(self,request):
         user=request.user

@@ -1,0 +1,42 @@
+{% extends "dashboard/layout.html" %}
+{% load static %}
+{% load to_price %}
+{% block contents %}
+
+
+
+
+
+<div class="row">
+{% for entry in entries %}
+  <div class="col-lg-6">
+      <div class="card">
+      <a href="{{entry.get_absolute_url}}">{{entry}}</a>
+    </div>
+  </div>
+{% endfor %}
+
+   
+
+
+
+
+
+  
+    
+
+
+</div>
+
+
+
+
+{% endblock %}
+{% block scripts %}
+<script>
+    $("#phonebook-link").addClass('active')
+  </script>
+{% endblock %}
+{% block styles %}
+
+{% endblock %}
