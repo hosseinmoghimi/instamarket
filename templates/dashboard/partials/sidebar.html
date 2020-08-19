@@ -1,6 +1,6 @@
 {% load static %}
 
-<li class="nav-item " id="home-link">
+<li class="nav-item " id="dashboard-link">
     <a class="nav-link" href="{% url 'dashboard:home' %}">
         <i class="material-icons">store</i>
         <p>خانه</p>
@@ -9,7 +9,7 @@
 
 
 
-<li class="nav-item " id="home-link">
+<li class="nav-item " id="pusher-link">
     <a class="nav-link" href="{% url 'pusher:home' %}">
         <i class="material-icons">store</i>
         <p>پوشر</p>
@@ -17,17 +17,23 @@
 </li>
 
 
-<li class="nav-item " id="home-link">
+<li class="nav-item " id="market-link">
     <a class="nav-link" href="{% url 'market:home' %}">
         <i class="material-icons">store</i>
         <p>مارکت</p>
+    </a>
+</li>
+<li class="nav-item " id="phonebook-link">
+    <a class="nav-link" href="{% url 'phonebook:home' %}">
+        <i class="material-icons">store</i>
+        <p>دفترچه تلفن</p>
     </a>
 </li>
 
 
 
 
-<li class="nav-item " id="sidebar-manager-link">
+<li class="nav-item " id="dashboard-manager-link">
     <a class="nav-link" href="{% url 'dashboard:manager' %}">
         <i class="material-icons">store</i>
         <p>مدیریت</p>
@@ -36,7 +42,7 @@
 
 
 
-<li class="nav-item " id="sidebar-manager-link">
+<li class="nav-item " id="project-manager-link">
     <a class="nav-link" href="{% url 'manager:home' %}">
         <i class="material-icons">store</i>
         <p>پروژه</p>

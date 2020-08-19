@@ -46,6 +46,7 @@ elif ON_HEROKU:
 # Application definition
 
 INSTALLED_APPS = [
+    'phonebook',
     'leopusher',
     'market',
     'manager',

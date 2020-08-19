@@ -11,58 +11,7 @@
 </div>
 
 <div class="row" id="manager-app">
-    {% if send_pusher_beam_form %}
-
-    <div class="col-lg-6 ">
-        <div class="card card-stats">
-            <div class="card-header card-header-warning card-header-icon">
-                <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
-                </div>
-                <p class="card-category">ارسال پیام</p>
-                <h3 class="card-title">Pusher
-                    <small> Beam</small>
-                </h3>
-            </div>
-            <div class="card-body">
-                <form action="{% url 'pusher:send_beam' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">کلید</label>
-                                <input name="interests" type="text" class="form-control" value="">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">عنوان</label>
-                                <input name="title" type="text" class="form-control" value="">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group bmd-form-group is-filled">
-                                <label class="bmd-label-floating">متن</label>
-                                <input name="body" type="text" class="form-control" value="">
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" type="submit">ارسال پیام</button>
-                </form>
-
-            </div>
-            <div class="card-footer">
-                <div class="stats">
-                    <i class="material-icons text-danger">warning</i>
-                    <a href="#pablo">فضای بیشتری داشته باشید...</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {% endif %}
-
-
+  
 
 
     {% if send_pusher_channel_form %}
@@ -183,7 +132,59 @@
         </div>
     </div>
 
+    {% endif %} 
+     {% if send_pusher_beam_form %}
+
+    <div class="col-lg-6 ">
+        <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">content_copy</i>
+                </div>
+                <p class="card-category">ارسال پیام</p>
+                <h3 class="card-title">Pusher
+                    <small> Beam</small>
+                </h3>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'pusher:send_beam' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">کلید</label>
+                                <input name="interests" type="text" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">عنوان</label>
+                                <input name="title" type="text" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group bmd-form-group is-filled">
+                                <label class="bmd-label-floating">متن</label>
+                                <input name="body" type="text" class="form-control" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">ارسال پیام</button>
+                </form>
+
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons text-danger">warning</i>
+                    <a href="#pablo">فضای بیشتری داشته باشید...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% endif %}
+
+
 
 
     <div class="col-12">
@@ -212,7 +213,7 @@ let icons={{icons_s|safe}}
 let channel_events={{channel_events_s |safe}}
 </script>
 <script>
-    $("#manager-link").addClass("active");
+    $("#pusher-link").addClass("active");
     let manager_app = new Vue({
         el: "#manager-app",
         data: {
