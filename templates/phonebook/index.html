@@ -11,7 +11,8 @@
 {% for entry in entries %}
   <div class="col-lg-6">
       <div class="card">
-      <a href="{{entry.get_absolute_url}}">{{entry}}</a>
+        <p class="my-2 mx-3"><a href="{{entry.get_absolute_url}}">{{entry}}</a>
+      </p>
     </div>
   </div>
 {% endfor %}
