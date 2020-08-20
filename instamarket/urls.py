@@ -15,6 +15,7 @@ urlpatterns = [
     path('market/',include('market.urls')),
     path('pusher/',include('leopusher.urls')),
     path('phonebook/',include('phonebook.urls')),
+    path('transport/',include('transport.urls')),
 
     url(r'^media/(?P<path>.*)$', serve,{'document_root': MEDIA_ROOT}), 
     url(r'^static/(?P<path>.*)$', serve,{'document_root': STATIC_ROOT}),  
