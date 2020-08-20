@@ -4,40 +4,35 @@
 {% block contents %}
 
 
-
-
-
-<div class="row">
-    {% if entry %}
-    <div class="col-lg-6">
-        <div class="card">
-
-            <div class="card-body">
-                <p>
-                    <span>{{entry.first_name}}</span><br>
-                    <span>{{entry.last_name}}</span><br>
-                </p>
-
-                {% for detail in entry.details.all %}
-                <span>{{detail.entry_name}} : {{detail.entry_value}}</span><br>
-                {% endfor %}
-            </div>
-
-        </div>
+<div class="card card-stats">
+    <div class="card-header card-header-success card-header-icon">
+      <div class="card-icon">
+        <i class="material-icons">contact_phone</i>
+      </div>
+      <h3 class="card-title">{{entry}}</h3>
     </div>
-    {% endif %}
+    <div class="card-body">
+        <p>
+            نام : <span class="text-primary">{{entry.first_name}}</span><br>
+            نام خانوادگی : <span class="text-primary">{{entry.last_name}}</span><br>
+        </p>
+
+      <p>
+      {% for detail in entry.details.all %}
+                {{detail.entry_name}} : <span  class="text-primary">{{detail.entry_value}}</span><br>
+                {% endfor %}</p>
+    </div>
+    <div class="card-footer">
+      <div class="stats">
+        <a href="{{entry.get_absolute_url}}">
+          <i class="material-icons">date_range</i>
+          جزییات</a>
+        
+      </div>
+    </div>
+  </div>
 
 
-
-
-
-
-
-
-
-
-
-</div>
 
 
 
