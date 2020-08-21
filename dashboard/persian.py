@@ -10,7 +10,10 @@ class PersianCalendar:
         if date is not None:
             self.date=date
             self.persian_date=self.from_gregorian(greg_date_time=self.date)
-    
+    def is_in_first_shamsi_year(self,greg_date_time):
+        if (greg_date_time.month>3 and greg_date_time.day>19) and (greg_date_time.month<10 and greg_date_time.day<22):
+            return True
+        return False
     def now(self):
         return JalaliDateTime.today()
     def parse(self,value):
@@ -41,9 +44,15 @@ class PersianCalendar:
         if not add_time_zone:
             return JalaliDateTime.to_jalali(greg_date_time).strftime("%Y/%m/%d %H:%M:%S") 
         if ON_SERVER:
-            hours=4
+            if self.is_in_first_shamsi_year(greg_date_time):
+                hours=4
+            else:
+                hours=3
             minutes=30
         else:
-            hours=4
+            if self.is_in_first_shamsi_year(greg_date_time):
+                hours=4
+            else:
+                hours=3
             minutes=30
         return JalaliDateTime.to_jalali(greg_date_time+datetime.timedelta(hours=hours,minutes=minutes)).strftime("%Y/%m/%d %H:%M:%S") 
