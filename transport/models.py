@@ -33,7 +33,7 @@ class RequestService(models.Model):
     vehicle_type=models.CharField(_("نوع وسیله "),choices=VehicleTypeEnum.choices,default=VehicleTypeEnum.TAXI, max_length=50)
     quantity=models.IntegerField(_("تعداد"),default=1)
     date_added=models.DateTimeField(_("date_added"), auto_now=False, auto_now_add=True)
-    date_needed=models.DateTimeField(_("date_needed"),default=timezone.now(), auto_now=False, auto_now_add=False)
+    date_needed=models.DateTimeField(_("date_needed"),default=timezone.now, auto_now=False, auto_now_add=False)
     description=models.CharField(_("description"), max_length=500,null=True,blank=True)
     
     
