@@ -41,8 +41,8 @@ class PersianCalendar:
         if not add_time_zone:
             return JalaliDateTime.to_jalali(greg_date_time).strftime("%Y/%m/%d %H:%M:%S") 
         if ON_SERVER:
-            hours=0
-            minutes=0
+            hours=4
+            minutes=30
         else:
             hours=4
             minutes=30
