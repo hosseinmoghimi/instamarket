@@ -1,4 +1,5 @@
 from persiantools.jdatetime import JalaliDateTime
+from django.utils import timezone
 from .settings import ON_SERVER
 import datetime
 class PersianCalendar:
@@ -10,8 +11,9 @@ class PersianCalendar:
         if date is not None:
             self.date=date
             self.persian_date=self.from_gregorian(greg_date_time=self.date)
-    def is_in_first_shamsi_year(self,greg_date_time):
-        if (greg_date_time.month>3 and greg_date_time.day>19) and (greg_date_time.month<10 and greg_date_time.day<22):
+    def is_in_first_half_shamsi_year(self):
+        now=timezone.now()
+        if (now.month>3 and now.day>19) and (now.month<10 and now.day<22):
             return True
         return False
     def now(self):
@@ -44,13 +46,13 @@ class PersianCalendar:
         if not add_time_zone:
             return JalaliDateTime.to_jalali(greg_date_time).strftime("%Y/%m/%d %H:%M:%S") 
         if ON_SERVER:
-            if self.is_in_first_shamsi_year(greg_date_time):
+            if self.is_in_first_half_shamsi_year():
                 hours=4
             else:
                 hours=3
             minutes=30
         else:
-            if self.is_in_first_shamsi_year(greg_date_time):
+            if self.is_in_first_half_shamsi_year():
                 hours=4
             else:
                 hours=3
