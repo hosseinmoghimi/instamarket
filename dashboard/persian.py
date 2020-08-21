@@ -3,9 +3,14 @@ from .settings import ON_SERVER
 import datetime
 class PersianCalendar:
     
-    def __init__(self):
-        self.date=datetime.datetime.today()
-        self.persian_date=self.from_gregorian(greg_date_time=self.date)
+    def __init__(self,date=None):
+        if date is None:
+            self.date=datetime.datetime.today()
+            self.persian_date=self.from_gregorian(greg_date_time=self.date)
+        if date is not None:
+            self.date=date
+            self.persian_date=self.from_gregorian(greg_date_time=self.date)
+    
     def now(self):
         return JalaliDateTime.today()
     def parse(self,value):
